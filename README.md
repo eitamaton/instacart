@@ -8,7 +8,7 @@
 * [Presentation](./instacart-presentation.pdf) <--- Slides provide an overview.
 
 ## Notebooks
-Listed in the order in which they should be executed with respect to data flow.
+Execute in the order listed to respect the data flow.
 1. [Instacart: Exploratory Data Analysis](./instacart-exploratory-data-analysis.ipynb)
 2. [Instacart: Feature Engineering](./instacart-feature-engineering.ipynb)
     * [Latent Dirichlet Allocation GridSearchCV Part 1: Coarse Search](./instacart-lda-gridsearchcv-course.ipynb)
