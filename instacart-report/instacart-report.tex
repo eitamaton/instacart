@@ -1,0 +1,2312 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+%    \DeclareCaptionLabelFormat{nolabel}{}
+%   \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Instacart Basket Prediction}
+    \author{Eitan Angel}    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+%_________________________________________________________________________________    
+%_________________________________________________________________________________    
+%_________________________________________________________________________________    
+
+
+
+
+
+%_________________________________________________________________________________    
+
+   % Mine
+
+
+  %\usepackage{showkeys}
+
+   \usepackage[square,sort,comma,numbers]{natbib}
+   \usepackage{url}
+
+   \usepackage{mathtools}
+
+   \usepackage{amsthm}
+   \usepackage{amsmath}
+   \DeclareMathOperator*{\argmax}{arg\,max}
+   \DeclareMathOperator*{\argmin}{arg\,min}
+   
+   \theoremstyle{definition}
+   \newtheorem{definition}{Definition}
+   \numberwithin{equation}{section}
+   
+   \usepackage{listings}
+   \usepackage{float}
+   \floatstyle{ruled}
+   \newfloat{listing}{thp}{lop}
+   \floatname{listing}{Listing}
+   \DeclareCaptionLabelSeparator{mycolon}{: }
+   \captionsetup[listing]{labelsep=mycolon}
+   \usepackage{subcaption}
+   \usepackage{wrapfig}
+   \usepackage{caption}
+   \usepackage{enumitem}
+   \usepackage{tabu}
+
+
+    \definecolor{lawngreen}{rgb}{0.49, 0.99, 0.0}
+    \definecolor{gold}{rgb}{1.0, 0.84, 0.0}
+    \definecolor{deepskyblue}{rgb}{0.0, 0.75, 1.0}
+    \definecolor{lightgrey}{rgb}{0.83, 0.83, 0.83}
+
+
+%_________________________________________________________________________________    
+
+
+\begin{document}
+
+
+\maketitle
+
+\tableofcontents
+%\newpage
+
+\listoffigures 
+
+\listoftables
+
+\listof{listing}{List of Listings}
+
+\newpage
+
+
+\hypertarget{introduction}{%
+  \section{Introduction}\label{introduction}}
+
+\hypertarget{problem-predict-the-items-instacart-costumers-purchase}{%
+  \subsection{Problem: Predict the Items Instacart Costumers Purchase}
+  \label{problem-predict-the-items-instacart-costumers-purchase}}
+
+Instacart is a grocery-on-demand start-up which, in 2017, released a
+dataset containing 3 million orders from 200,000 (anonymized) users. A
+now-completed Kaggle competition asked entrants to predict which
+previously purchased products would be in a consumer's next order. In
+addition, Instacart would like to develop recommender systems that could
+predict which products a user would buy for the first time and which
+products would be added to a user's cart in future orders.
+
+Section \ref{top-n-variants} makes predictions according to the Kaggle
+competition, that is, from a given user's set of previously purchased
+products, predict which of those products the user will ultimately
+order. The model includes different product application variants, for instance
+
+\begin{itemize}
+  \item more precise predictions to, for example, autopopulate a user's cart
+  \item top-$N$ most-likely products a particular user will purchase to, for example, display on a web page of fixed results
+\end{itemize}
+
+\hypertarget{data-the-instacart-online-grocery-shopping-dataset}{%
+  \subsection{Data: The Instacart Online Grocery Shopping
+    Dataset}\label{data-the-instacart-online-grocery-shopping-dataset}}
+
+The Instacart public dataset release is a sample of 3 million orders
+from 200,000 anonymized users released in 2017. For each user, Instacart
+has provided between 4 and 100 of their orders, including the intraorder
+sequence in which products were purchased, the week and hour of the day
+the order was placed, the relative time between orders, and the grocery
+store department to which each product belongs. A
+\href{https://tech.instacart.com/3-million-instacart-orders-open-sourced-d40d29ead6f2}{blog
+  post by Instacart} provides some information about the dataset and a
+\href{https://www.kaggle.com/c/instacart-market-basket-analysis/overview}{Kaggle
+  competition} provides additional details.
+
+All data was obtained from the Kaggle competition website. The dataset
+is a relational set of \texttt{.csv} files which describe customer orders over
+relative times. Each entity (customer, order, department, etc.) has a
+unique id.
+
+
+\hypertarget{outline-the-data-map-composition}{%
+  \subsection{Outline: The Data Map Composition
+}\label{outline-the-data-map-composition}}
+
+The structure of the subsequent sections corresponds to the maps
+of the composition 
+\begin{equation}
+\mathrm{RawData}
+\xmapsto{\quad \mathsf{P} \quad }
+D 
+\xmapsto{\quad \mathsf{F}\quad }
+X
+\xmapsto{\ \operatorname{\widehat{\mathsf{RFC}}}_\mathbf{n_0} }
+\hat{y}^\star
+\xmapsto{\ \mathsf{TopN}\ }
+\hat{y}.
+\end{equation}
+as well as the domain and image.
+In section \ref{exploration} we perform exploratory data analysis on $\mathrm{RawData}$,
+the dataset described in section \ref{data-the-instacart-online-grocery-shopping-dataset}.
+Section \ref{train-test-split} describes the train/test partition $\mathsf{P}$.
+The feature design map $\mathsf{F}$ of section \ref{feature-design}
+assembles the partitioned raw data $D$ into a design matrix $X$
+which has user-product pairs as its rows. The random forest classifier
+$\mathsf{RFC}_{\mathbf{n_0}}$ of section \ref{random-forest-classifier}
+makes a probabilistic prediction $\hat{y}^\star$ of
+user-product pairs appearing in the user's ultimate order.
+In particular, section \ref{hyperparameter-tuning} locates optimal hyperparameters
+$\mathbf{n_0}$ for the random forest classifier.
+We devise various $\mathsf{TopN}$ schemes in section \ref{top-n-variants}
+to assign binary predictions $\hat{y}$.
+Finally, we exhibit a data visualization utility in section \ref{prediction-explorer} 
+to compare the predictions $\hat{y}$ against the true values $y_\text{test}$.
+
+In addition, section \ref{prospects} describes a wishlist of potential improvements to the project.
+The list of features is in section \ref{appendix-i-features-list}: Appendix I; the Jupyter notebooks
+containing code for this project are referenced in section \ref{appendix-ii-notebooks}: Appendix II.
+
+
+%_________________________________________________________________________________
+
+
+\hypertarget{exploration}{%
+  \section{Exploration}\label{exploration}}
+
+Section \ref{instacart-exploratory-data-analysis} references the code described in this section.
+
+Kaggle posts
+\href{https://www.kaggle.com/sudalairajkumar/simple-exploration-notebook-instacart}{Simple
+Exploration Notebook - Instacart} and
+\href{https://www.kaggle.com/philippsp/exploratory-analysis-instacart}{Exploratory
+Analysis - Instacart}, both of which the author viewed while deciding on the dataset and project, were very instructive. First, we display the \texttt{*.csv} files forming the $\mathsf{RawData}$. Displayed in this section are number of plots and tables showing the most (and sometimes least) popular products, aisles, departments, and times for (re)orders:
+
+\bigskip
+\begin{minipage}[t]{0.48\textwidth}
+\begin{itemize}
+\item \nameref{tab:order-products}
+\item \nameref{tab:orders}
+\item \nameref{tab:pad-dict}
+\item \nameref{tab:merged-rawdata}
+\item \nameref{tab:reorder-rates}
+\item \nameref{tab:popular-pad}
+\end{itemize}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\begin{itemize}
+\item \nameref{fig:dow-vs-hr-order-heatmap}
+\item \nameref{fig:days-histogram}
+\item \nameref{fig:orders-histogram}
+\item \nameref{fig:basket-size-histogram}
+\end{itemize}
+\end{minipage}
+
+
+%----- RawData Tables
+
+
+\begin{table}[h]
+  \centering
+  \caption{\texttt{order\_products*.csv}}
+  \label{tab:order-products}
+  {\ttfamily
+  \begin{tabular}{rrrr}
+    \toprule
+    order\_id & product\_id & add\_to\_cart\_order & reordered \\
+    \midrule
+    1         & 49302       & 1                    & 1         \\
+    1         & 11109       & 2                    & 1         \\
+    1         & 10246       & 3                    & 0         \\
+    1         & 49683       & 4                    & 0         \\
+    1         & 43633       & 5                    & 1         \\
+    \bottomrule
+  \end{tabular}
+  }
+  \captionsetup{width=0.6\linewidth}
+  \caption*{While only \texttt{order\_products\_\_train.csv} is displayed, \texttt{order\_products\_\_prior.csv} has the same structure.}
+\end{table}
+
+
+\begin{table}[h]
+  \centering
+  \caption{\texttt{orders.csv}}
+  \label{tab:orders}
+{\ttfamily
+  \begin{tabular}{rrlrrrr}
+    \toprule
+    order\_id & user\_id & eval\_set & order\_number & order\_dow & order\_hour\ldots & days\_since\ldots \\
+    \midrule
+    2539329   & 1        & prior     & 1             & 2          & 8                 & NaN               \\
+    2398795   & 1        & prior     & 2             & 3          & 7                 & 15.0              \\
+    473747    & 1        & prior     & 3             & 3          & 12                & 21.0              \\
+    2254736   & 1        & prior     & 4             & 4          & 7                 & 29.0              \\
+    431534    & 1        & prior     & 5             & 4          & 15                & 28.0              \\
+    \bottomrule
+  \end{tabular}
+  }
+  \caption*{The abbreviated column headers are \texttt{order\_hour\_of\_day} and \texttt{days\_since\_prior\_order}.}
+\end{table}
+
+
+
+
+\begin{table}[p]
+  \caption{Dictionaries between \texttt{*\_id} and \texttt{*\_name}}
+  \label{tab:pad-dict}
+  \begin{subtable}{\linewidth}
+    \subcaption{\texttt{products.csv}}
+    \label{tab:products}
+    \begin{tabular}{>{\ttfamily}rl>{\ttfamily}r>{\ttfamily}r}
+      \toprule
+      product\_id & \texttt{product\_name}                            & aisle\_id & department\_id \\
+      \midrule
+      1           & Chocolate Sandwich Cookies                        & 61        & 19             \\
+      2           & All-Seasons Salt                                  & 104       & 13             \\
+      3           & Robust Golden Unsweetened Oolong Tea              & 94        & 7              \\
+      4           & Smart Ones Classic Favorites Mini Rigatoni Wit... & 38        & 1              \\
+      5           & Green Chile Anytime Sauce                         & 5         & 13             \\
+      \bottomrule
+    \end{tabular}
+  \end{subtable}
+
+  \par\medskip
+
+  \begin{subtable}[b]{0.55\linewidth}
+    \centering
+    \label{tab:aisles}
+    \begin{tabular}{>{\ttfamily}rl}
+      \toprule
+      aisle\_id & \texttt{aisle}             \\
+      \midrule
+      1         & prepared soups salads      \\
+      2         & specialty cheeses          \\
+      3         & energy granola bars        \\
+      4         & instant foods              \\
+      5         & marinades meat preparation \\
+      \bottomrule
+    \end{tabular}
+    \subcaption{\texttt{aisles.csv}}
+    \centering
+  \end{subtable}%
+  \begin{subtable}[b]{0.45\linewidth}
+    \centering
+    \label{tab:departments}
+    \begin{tabular}{>{\ttfamily}rl}
+      \toprule
+      department\_id & \texttt{department} \\
+      \midrule
+      1              & frozen              \\
+      2              & other               \\
+      3              & bakery              \\
+      4              & produce             \\
+      5              & alcohol             \\
+      \bottomrule
+    \end{tabular}
+    \subcaption{\texttt{departments.csv}}
+    %\end{minipage}
+  \end{subtable}
+\end{table}
+
+
+
+
+\begin{table}[p]
+  \centering
+  \caption{Merged DataFrame of RawData}
+  \label{tab:merged-rawdata}
+  \begin{tabular}{>{\ttfamily}l
+  			 >{\ttfamily}l
+			 >{\ttfamily}l
+			 >{\ttfamily}r
+			 >{\ttfamily}r
+			 >{\ttfamily}r
+			 >{\ttfamily}r
+			 lll}
+    \hline
+      &   &   & dow & hr & days & re & product\_name                     & aisle         & department \\
+    %         &               &                      & order\_dow & order\_hour\_of\_day & days\_since\_prior\_order & reordered & product\_name                                     & aisle                      & department \\
+    . & . & . &     &    &      &    &                                   &               &            \\ \hline
+    %user\_id & order\_number & add\_to\_cart\_order &            &                      &                           &           &                                                   &                            &            \\ \hline
+    1 & 1 & 1 & 2   & 8  & NaN  & 0  & Soda                              & soft drinks   & beverages  \\
+    &               & 2                    & 2          & 8                    & NaN                       & 0         & Organic Unsweetened \ldots
+    & soy lactosefree            & dairy eggs \\
+    %         &               & 2                    & 2          & 8                    & NaN                       & 0         & Organic Unsweetened Vanilla Almond Milk
+    %                    & soy lactosefree            & dairy eggs \\
+      &   & 3 & 2   & 8  & NaN  & 0  & Original Beef Jerky               & popcorn jerky & snacks     \\
+      &   & 4 & 2   & 8  & NaN  & 0  & Aged White Cheddar Popcorn        & popcorn jerky & snacks     \\
+      &   & 5 & 2   & 8  & NaN  & 0  & XL Pick-A-Size Paper Towel \ldots & paper goods   & household  \\
+    %         &               & 5                    & 2          & 8                    & NaN                       & 0         & XL Pick-A-Size Paper Towel Rolls                  & paper goods                & household  \\
+      & 2 & 1 & 3   & 7  & 15.0 & 1  & Soda                              & soft drinks   & beverages  \\
+    &               & 2                    & 3          & 7                    & 15.0                      & 0         & Pistachios                                        & nuts seeds \ldots
+    & snacks     \\
+    %         &               & 2                    & 3          & 7                    & 15.0                      & 0         & Pistachios                                        & nuts seeds dried fruit
+    %              & snacks     \\
+      &   & 3 & 3   & 7  & 15.0 & 1  & Original Beef Jerky               & popcorn jerky & snacks     \\
+      &   & 4 & 3   & 7  & 15.0 & 0  & Bag of Organic Bananas            & fresh fruits  & produce    \\
+      &   & 5 & 3   & 7  & 15.0 & 1  & Aged White Cheddar Popcorn        & popcorn jerky & snacks     \\
+    \hline
+  \end{tabular}
+  \caption*{Merge of \texttt{order\_products*.csv} with \texttt{orders.csv} on \texttt{order\_id}
+ upon a reindexing (and deletion of column \texttt{order\_id}).
+ The MultiIndex is \texttt{(user\_id, order\_number, add\_to\_cart\_order)} 
+ while \texttt{order\_dow, order\_hour\_of\_day, days\_since\_prior\_order, \text{and} reordered} 
+ are abbreviated \texttt{dow, hr, days, \text{and} re}, respectively. 
+ The total number of rows -- that is, the total number of items ordered -- is 33,819,106.}
+\end{table}
+
+
+
+
+
+
+
+%------- Figures
+
+
+%----- Temporal Orders
+
+\begin{figure}[p]
+    \begin{center}
+    \adjustimage{max size={0.7\linewidth}{0.7\paperheight}}{../instacart-exploratory-data-analysis/output_64_0.png}
+    \end{center}
+    \caption[Heatmap of order times]{Saturday afternoon and Sunday morning are the most popular time to make
+orders.}
+     \label{fig:dow-vs-hr-order-heatmap}
+\end{figure}
+
+\begin{figure}[p]
+\begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{../instacart-exploratory-data-analysis/output_66_0.png}
+\caption[Histogram of order frequency]{The most popular relative time between orders is monthly (30
+days), but there are ``local maxima'' at weekly (7 days), biweekly (14
+days), triweekly (21 days), and quadriweekly (28 days).}
+\label{fig:days-histogram}
+\end{center}
+\end{figure}
+
+%----- Baskets Counts
+
+\begin{figure}[p]
+\begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{../instacart-exploratory-data-analysis/output_70_0.png}
+\caption[Histogram of order counts by user]{Users have between 4 -- 100 orders. Those users in the dataset with 100 orders seem to have at least 100 orders and we have only their most recent 100 orders.}
+\label{fig:orders-histogram}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[p]
+\begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{../instacart-exploratory-data-analysis/output_73_0.png}
+\end{center}
+\caption[Histogram of basket sizes]{As one should expect, this distribution is right-skew. The mode basket size is 5.}
+\label{fig:basket-size-histogram}
+\end{figure}
+
+%-------- Reorders
+
+\begin{table}[p]
+\caption[Reorder rates for products and aisles]{Reorder rates for products and aisles. 59.01\% of purchases were reorders.}
+\begin{subtable}[]{.5\textwidth}
+\begin{tabular}{l>{\ttfamily}r}
+\toprule
+\texttt{product\_name}                                     & reorder \\
+\midrule
+Raw Veggie Wrappers                               & 0.9420       \\
+Serenity Ultimate Extrema \ldots          & 0.9333       \\
+%Serenity Ultimate Extrema Overnight Pads          & 0.9333       \\
+Chocolate Love Bar                                & 0.9215       \\
+Bars Peanut Butter                                & 0.8985       \\
+Soy Crisps Lightly Salted                         & 0.8955       \\
+Maca Buttercups                                   & 0.8942       \\
+Benchbreak Chardonnay                             & 0.8918       \\
+Organic Blueberry B Mega                          & 0.8888       \\
+Sparking Water                                    & 0.8870       \\
+Fragrance Free Clay \ldots & 0.8702       \\ 
+%Fragrance Free Clay with Natural Odor Eliminat... & 0.870229       \\ \hline
+\bottomrule
+\end{tabular}
+\captionsetup{width=.9\linewidth}
+\caption{The most reordered products with at \\ least 50 orders.}
+\end{subtable}%
+%
+\begin{subtable}[]{.5\textwidth}
+\begin{tabular}{ll>{\ttfamily}l}
+\toprule
+\texttt{aisle}                         & \texttt{department}    & \texttt{reorder} \\ 
+\midrule
+milk                          & dairy eggs    & 0.7818  \\
+water seltzer\ldots & beverages     & 0.7299   \\
+%water seltzer sparkling water & beverages     & 0.7299   \\
+fresh fruits                  & produce       & 0.7188  \\
+eggs                          & dairy eggs    & 0.7063  \\
+soy lactosefree               & dairy eggs    & 0.6923  \\
+...                           & ...           & ...       \\
+beauty                        & personal care & 0.2128  \\
+first aid                     & personal care & 0.1958  \\
+kitchen supplies              & household     & 0.1948  \\
+baking supplies \ldots         & pantry        & 0.1675  \\
+spices seasonings             & pantry        & 0.1529  \\ 
+\bottomrule
+\end{tabular}
+\caption{The most and least reordered from aisles.}
+\end{subtable}
+\label{tab:reorder-rates}
+
+\end{table}
+
+
+%----- Products, aisles, departments
+
+\begin{table}[p]
+\centering
+%\begin{wraptable}{L}{0pt}
+\begin{minipage}{.5\textwidth}
+\centering
+\begin{subtable}[t]{\textwidth}
+\begin{tabular}{l>{\ttfamily}r}
+\toprule
+\texttt{product\_name}   & \texttt{count}        \\
+\midrule
+Banana                     & 491291 \\
+Bag of Organic Bananas     & 394930 \\
+Organic Strawberries       & 275577 \\
+Organic Baby Spinach       & 251705 \\
+Organic Hass Avocado       & 220877 \\
+Organic Avocado            & 184224 \\
+Large Lemon                & 160792 \\
+Strawberries               & 149445 \\
+Limes                      & 146660 \\
+Organic Whole Milk         & 142813 \\
+Organic Raspberries        & 142603 \\
+Organic Yellow Onion       & 117716 \\
+Organic Garlic             & 113936 \\
+Organic Zucchini           & 109412 \\
+Organic Blueberries        & 105026 \\
+Cucumber Kirby             & 99728  \\
+Organic Fuji Apple         & 92889  \\
+Organic Lemon              & 91251  \\
+Organic Grape Tomatoes     & 88078  \\
+Apple Honeycrisp Organic   & 87272  \\
+Seedless Red Grapes        & 86748  \\
+Organic Cucumber           & 85005  \\
+Honeycrisp Apple           & 83320  \\
+Organic Baby Carrots       & 80493  \\
+Sparkling Water Grapefruit & 79245  \\ 
+\bottomrule
+\end{tabular}
+\captionsetup{width=.9\linewidth}
+\caption{The majority of the 25 most popular \\ products are organic fruits or vegetables.}
+\label{tab:top-products}
+\end{subtable}
+\end{minipage}%
+%
+\begin{minipage}[]{.5\textwidth}
+\begin{subtable}[t]{\textwidth}
+\centering
+\begin{tabular}{l>{\ttfamily}r}
+\toprule
+\texttt{aisle\_name}   & \texttt{count}        \\
+\midrule
+fresh fruits                  & 3792661 \\
+fresh vegetables              & 3568630 \\
+packaged vegetables fruits    & 1843806 \\
+yogurt                        & 1507583 \\
+packaged cheese               & 1021462 \\
+milk                          & 923659  \\
+water seltzer sparkling water & 878150  \\
+chips pretzels                & 753739  \\
+soy lactosefree               & 664493  \\
+bread                         & 608469  \\
+%refrigerated                  & 599109  \\
+%frozen produce                & 545107  \\
+%ice cream ice                 & 521101  \\
+%crackers                      & 478430  \\
+%energy granola bars           & 473835  \\ 
+\bottomrule
+\end{tabular}
+%\captionsetup{width=.45\linewidth}
+\caption{The most popular aisles.}
+\label{tab:top-aisles}
+\end{subtable}
+\begin{subtable}[b]{\textwidth}
+\centering
+\begin{tabular}{l>{\ttfamily}r}
+\toprule
+\texttt{department\_name}       & \texttt{total\_pct} \\
+\midrule
+produce         & 0.2923   \\
+dairy eggs      & 0.1665   \\
+snacks          & 0.0888   \\
+beverages       & 0.0829   \\
+frozen          & 0.0690   \\
+pantry          & 0.0578   \\
+bakery          & 0.0362   \\
+canned goods    & 0.0329   \\
+deli            & 0.0323   \\
+dry goods pasta & 0.0267   \\
+household       & 0.0229   \\
+meat seafood    & 0.0218   \\
+%breakfast       & 0.0218   \\
+%personal care   & 0.0138   \\
+%babies          & 0.0129   \\
+%international   & 0.0083   \\
+%alcohol         & 0.0047   \\
+%pets            & 0.0030   \\
+%missing         & 0.0022   \\
+%other           & 0.0011   \\
+%bulk            & 0.0010   \\ 
+\bottomrule
+\end{tabular}
+%\captionsetup{width=.45\linewidth}
+\caption{The share of the most popular departments.}
+\label{tab:top-departments}
+\end{subtable}
+\end{minipage}
+\caption{The most popular products, aisles, and departments}
+\label{tab:popular-pad}
+\end{table}
+
+
+
+
+
+
+\newpage
+
+%_________________________________________________________________________________
+
+\hypertarget{train-test-split}{%
+  \section{Train-Test Split}\label{train-test-split}}
+
+Section \ref{instacart-feature-engineering} references the code described
+in this section.
+
+It is worth taking a moment to discuss the dataset partition process.
+Typically, training a model, tuning its hyperparameters, and evaluating
+its performance are done using a three-way split of the dataset into
+independent training, cross-validation, and test sets. On the other
+hand, the random forest algorithm is a bootstrap aggregation (bagging)
+of decision trees technique that has a convenient property. Given a
+sample \(x\) in the training dataset, \(x\) is used to train only about
+2/3 of the decision trees, so that roughly 1/3 of the trees are trained
+on data which does not include \(x\). An out-of-bag (OOB) estimate uses
+trees which have not been trained on \(x\) to make a prediction for
+\(x\). Beyond a minor simplification in the dataset partition process,
+exploiting this property can lead to considerable resource
+advantages, without which, far less of this project could
+have succeeded using the
+\href{https://www.kaggle.com/docs/kernels\#technical-specifications}{resources
+  available on the Kaggle Kernel platform}. We elaborate on these details
+and discuss the implications for the hyperparameter search in
+Section \ref{random-forest-classifier}.
+
+
+
+
+
+
+
+
+
+The \emph{partition map} is a transformation,
+\begin{equation}\label{eq:partition-map}
+\begin{split}
+   \mathsf{P} :  \mathsf{RawData} &\rightarrow \mathsf{D}^{\textrm{DSets}} \\
+     \mathrm{RawData} &\mapsto \{D_s\}_{s \in \textrm{DSets}},
+\end{split}
+\end{equation}% 
+\begin{wraptable}[7]{r}{0pt}
+\begin{tabular}{lr}
+    \toprule
+    eval\_set &  user\_id \\
+    \midrule
+    prior    &   206209 \\
+    train    &   131209 \\
+    test     &    75000 \\
+    \bottomrule
+\end{tabular}
+\centering
+\caption*{\texttt{eval\_set} counts}
+\end{wraptable}%
+where
+\begin{itemize}
+\item \(\mathrm{DSets} = \{\mathrm{train, test, kaggle}\}\),
+\item \(\mathrm{RawData}\) denotes the collection of tables of user orders and
+baskets in \texttt{orders.csv} and \texttt{order\_products*.csv}, 
+\item \(\mathsf{RawData}\) is the set of possible collections of tables matching the column
+and relational structure of \(\mathrm{RawData}\),
+\item \( \mathsf{P} \) is the unique partition defined by a partition of the set of users,
+$U$, ordered by, say, \texttt{user\_id}, into $\{ U_s \}_{s \in \mathrm{DSets}}$ where the
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html}{sklearn.model\_selection.train\_test\_split}
+utility determines the partition between \(U_\text{train}\) and
+\(U_\text{test}\), while \(U_\text{kaggle}\) consists of users whose \texttt{user\_id} is
+in a row matching the condition
+\texttt{ eval\_set == \textquotesingle{}test\textquotesingle{}} as follows
+\begin{description}
+\item[\(U_\text{train}\):] 80\%
+of the 131,209 users whose ultimate orders are available.
+\item[\(U_\text{test}\):] 20\% of the 131,209 users whose ultimate orders are
+available. 
+\item [\(U_\text{kaggle}\):] The 75,000 users whose ultimate orders
+are withheld by Kaggle. This project does not explicitly use this set;
+predictions on kaggle merely serve as a sanity check via submission to
+Kaggle.
+\end{description}
+\item \(\{D_s\}_{s \in \mathrm{DSets}}\) is the image of $\mathrm{RawData}$ under $\mathsf{P}$.
+\item \(\ \mathsf{D}^{\mathrm{DSets}} \) are possible sets of the form \(\{D_s\}_{s \in \mathrm{DSets}}\),
+that is, the collection of possible partitions of members of \(\mathsf{RawData}\) over \( \mathrm{DSets} \).
+\end{itemize}
+
+%
+%
+%The
+%\href{https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html}{sklearn.model\_selection.train\_test\_split}
+%utility defines the partition between \(U_\text{train}\) and
+%\(U_\text{test}\). 
+%We implement the sequences \(U_s\) as \texttt{list}s ordered by \texttt{user\_id}.
+
+
+
+\begin{table}[h]
+\begin{longtable}[]{@{}ll@{}}
+  \toprule
+  \begin{minipage}[b]{0.35\columnwidth}\raggedright
+    representation ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\strut
+  \end{minipage}  & \begin{minipage}[b]{0.59\columnwidth}\raggedright
+    implementation\strut
+  \end{minipage}\tabularnewline
+  \midrule
+  \endhead
+  \begin{minipage}[t]{0.35\columnwidth}\raggedright
+    \(\mathrm{DSets} = \{\mathrm{train, test, kaggle}\}\)\strut
+  \end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+    \texttt{dsets\ =\ {[}\textquotesingle{}train\textquotesingle{},\ \textquotesingle{}test\textquotesingle{},\ \textquotesingle{}kaggle\textquotesingle{}{]}}\strut
+  \end{minipage}\tabularnewline
+  \begin{minipage}[t]{0.35\columnwidth}\raggedright
+    \(s \in \mathrm{DSets}\)\strut
+  \end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+    \texttt{ds\ in\ dsets}\strut
+  \end{minipage}\tabularnewline
+  \begin{minipage}[t]{0.35\columnwidth}\raggedright
+    \(D_s\)\strut
+  \end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+    \texttt{orders{[}ds{]},\ prior{[}ds{]}\ \#\ P\PY{p}{(}RawData\PY{p}{)}}\strut
+  \end{minipage}\tabularnewline
+  \begin{minipage}[t]{0.35\columnwidth}\raggedright
+    \(U_s\)\strut
+  \end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+    \texttt{users{[}ds{]}}\strut
+  \end{minipage}\tabularnewline
+  \begin{minipage}[t]{0.35\columnwidth}\raggedright
+    \(X_s\)\strut
+  \end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+    \texttt{X{[}ds{]}}\strut
+  \end{minipage}\tabularnewline
+  \begin{minipage}[t]{0.35\columnwidth}\raggedright
+    \(y_s\)\strut
+  \end{minipage} & \begin{minipage}[t]{0.59\columnwidth}\raggedright
+    \texttt{y{[}ds{]}}\strut
+  \end{minipage}\tabularnewline
+  \bottomrule
+\end{longtable}
+\caption{Notation Dictionary: representation -- implementation}
+\label{tbl:notation-dict}
+\end{table}
+
+
+
+
+The list of strings
+\texttt{dsets\ =\ {[}\textquotesingle{}train\textquotesingle{},\ \textquotesingle{}test\textquotesingle{},\ \textquotesingle{}kaggle\textquotesingle{}{]}},
+implements \(\mathrm{DSets}\). \texttt{users} is a dictionary of lists
+of \texttt{user\_ids} keyed by \texttt{dsets}, initialized by
+
+\medskip
+\texttt{> users\ =\ dict.fromkeys(dsets)}
+\medskip
+
+so that
+
+\medskip
+\texttt{> [users{[}ds{]} \ for ds\ in\ dsets]}
+\medskip
+
+implements \(\{U_s\}_{s \in \mathrm{DSets}}\). Similarly, this notebook
+constructs matrices \texttt{X{[}ds{]}} which implement design matrices \(X_s\). Aside from the analogy between dictionary keys
+and subscripts, the \texttt{dict} type offers a coherent way to
+partition the dataset \(D_s\) of user orders and baskets in
+\texttt{orders.csv} and \texttt{order\_products*.csv} into separate
+DataFrames \texttt{orders{[}ds{]}} and \texttt{prior{[}ds{]}}, respectively, for
+\texttt{ds\ in\ dsets} at the outset, so as to avoid potential data leaks.
+Table \ref{tbl:notation-dict} is a partial dictionary between 
+mathematical abstractions and instantiations.
+
+
+
+We often suppress the dataset decoration in subsequent discussion so
+that, for example, \(X_s\) is denoted \(X\) when the objects discussed
+do not depend on the value of \(s\). Ideas to suppress \texttt{{[}ds{]}}
+in code are welcome.
+
+
+%_________________________________________________________________________________    
+
+
+\hypertarget{feature-design}{%
+  \section{Feature Design}\label{feature-design}}
+
+Section \ref{instacart-feature-engineering} references the code described
+in this section.
+
+Feature design is a transformation
+\begin{equation}\label{eq:feature-design}
+\begin{split}
+  \mathsf{F}  :  \ \mathsf{D} &\rightarrow \mathsf{M}_{n\times m} (\mathbb{R}) \\
+         D &\mapsto X
+\end{split}
+\end{equation}
+where \(\mathsf{M}_{n \times m} (\mathbb{R})\) is the space
+of \(n \times m\) real-valued matrices and \(\mathsf{D}\) is the space
+of possible user-basket data of the form \(D\).
+
+We describe \(\mathsf{F}\) explicitly as an \(m\)-tuple of transformations
+\begin{equation}
+  \mathsf{F}(D) := (\mathsf{f}_1 (D), \ldots, \mathsf{f}_m(D)),
+\end{equation} 
+or more succinctly \(\mathsf{F} = (\mathsf{f}_j )_{1}^m\), where
+\begin{equation}
+  \mathsf{f}_j : \mathsf{D} \rightarrow \mathbb{R}^n \\
+\end{equation} 
+calculates the \(j^\text{th}\) column of
+\(X \in \mathsf{M}_{n \times m} (\mathbb{R})\) via the equivalence
+\(\left(\mathbb{R}^n\right)^m \cong \mathsf{M}_{n \times m} (\mathbb{R})\).
+%and $d \subset D$. 
+Features may be implemented as \texttt{int}, \texttt{bool}, or \texttt{float} types
+though we consider them abstractly as being \(\mathbb{R}\)-valued.
+
+For most \(j \in \{1, \ldots, m\}\), \(\mathsf{f}_j\) consists of aggregations,
+filtrations, arithmetic operations, though at times we employ more
+complex transformations. For example, some features are computed via an
+unsupervised learning technique,
+\href{https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation}{Latent
+  Dirichlet Allocation (LDA)}, introduced in
+\cite{bleiLatentDirichletAllocation2003}. This is a probabilistic
+generative model we apply to the matrix of user-product purchase counts.
+Although the random forest classifier already sees this data as a column
+of \(X\), the distributional assumptions of LDA can yield a bit more
+predictive power. We can view this as a simple
+\href{https://en.wikipedia.org/wiki/Collaborative_filtering\#Model-based}{model-based
+  collaborative filtering} technique.
+
+
+
+
+The features -- columns of the design matrix \(X\) -- we group into a few Profiles.
+This overall structure is inspired by the description of feature design
+in \cite{liuRepeatBuyerPrediction2016}, in which the authors describe
+their approach to a related e-commerce buyer prediction competition. The
+User Profile, for example, consists of operations and aggregations
+grouped by user, so that the index for the user profile is \(U\), the
+list of users. The rows of \(X\) are not merely users, but user-product
+pairs, which means that the User Profile is broadcast to the
+user-product multi-index, \(\Gamma\), via a \texttt{.join()} operation.
+That is, the values of the User Profile are repeated across all products
+in the user-product index for any given user. An analogous statement
+holds for the Product Profile. Therefore, the User-Product profile will
+have the features with the greatest information content (and the Aisle
+and Department profiles the least). A list of Profiles and features is
+located in Section \ref{appendix-i-features-list}.
+
+For each \(u \in U\), let \(\mathop{\mathrm{Prod}} (u)\) be the ordered
+sequence of products purchased by \(u\) during prior purchases with
+ordering induced by, say, \texttt{product\_id}. Rows of \(X\) are
+multi-indexed by
+\begin{equation}
+  \Gamma = \left( (u, p) \ | \ u \in U \ \& \ p \in \mathop{\mathrm{Prod}} (u) \right)
+\end{equation}
+where the ordering is the lexicographic order defined by
+the ordering on \(U\) and \(\mathop{\mathrm{Prod}} (u)\). If we denote
+\((u, p) \in \Gamma\) by \(\gamma\), then we may denote the
+\(\gamma^{\text{th}}\) observation in \(X \times y\) by \( (x^\gamma, y^\gamma) \). Denote
+\(n_s := | \Gamma_s |\) so that \(X_s\) is of size \(n_s \times m\). 
+
+
+\begin{wraptable}[5]{R}{0pt}
+\begin{tabular}{llll}
+%\begin{longtable}[]{@{}llll@{}}
+  \toprule
+  \(n_\text{train}\) & \(n_\text{test}\) & \(n_\text{kaggle}\) &
+  \(m\) \\
+  \midrule
+  \texttt{6760791}            & \texttt{1713870}           & \texttt{4833292}             & \texttt{47} \\
+  \bottomrule
+\end{tabular}
+\end{wraptable}
+%\end{longtable}
+
+We were able to achieve as many as \(m \approx 50\) features on the Kaggle platform on
+which the collection of notebooks comprising this project were developed
+and run. The limiting resource is memory, though the limitation occurs at
+the \texttt{sklearn.ensemble.RandomForestClassifier} calls of subsequent
+notebooks. Kaggle provides instances with 16GB of memory; the
+instance provides no virtual memory (disk) so this is a hard limit on
+memory availability.
+
+
+The model we construct phrases the labels as a vector \(y\) of binary classes
+\begin{equation}
+  y^\gamma =
+  \begin{cases}
+    \text{True}  & \text{if user $u$ purchased product $p$ in ultimate order}        \\
+    \text{False} & \text{if user $u$ did not purchase product $p$ in ultimate order}
+  \end{cases}
+\end{equation} for all \(\gamma = (u, p) \in \Gamma\). Recall that
+$y_\text{kaggle} $ is withheld by Kaggle.
+Our aim is in the following sections is to predict the probability
+\(P((u, p))\) that user \(u\) purchases product \(p\) in their ultimate
+order, for all \((u, p) \in \Gamma\) -- or at least to predict a
+rank-ordering of these probabilities.
+
+
+%_________________________________________________________________________________    
+
+\hypertarget{random-forest-classifier}{%
+  \section{Random Forest Classifier}\label{random-forest-classifier}}
+
+While random forests are well-known, we will review some details in Section \ref{algorithm-review}
+so as to explain, motivate, and justify the strategy of
+Section \ref{hyperparameter-tuning} and our choice of train-test
+rather than train-cv-test split in Section \ref{train-test-split}.
+We proceed with a discussion of the OOB samples in section \ref{out-of-bag-samples},
+a list of metrics we examine in section \ref{metrics},
+a hyperparameter search in section \ref{hyperparameter-tuning},
+and scores for the rank metrics AUC-PR and AUC-ROC in section \ref{rank-scores}.
+
+Definition \ref{def:RFC} provides a map of probabilistic predictions
+\begin{equation}\label{eq:RFC-Theta}
+\begin{gathered}
+\operatorname{\widehat{\mathsf{RFC}}}_\mathbf{n_0} : 
+\mathsf{M}_{n \times m} (\mathbb{R}) \rightarrow [0, 1]^n \\ 
+X \mapsto \hat{y}^\star
+\end{gathered}
+\end{equation}
+once we make an optimal choice of hyperparameters $\mathbf{n_0}$.
+Section \ref{top-n-variants} discusses methods for mapping
+\begin{equation}
+\begin{aligned}
+{[0, 1]}^{n} &\rightarrow \{0, 1\}^n \\ 
+\hat{y}^\star  &\mapsto \hat{y}
+\end{aligned}
+\end{equation}
+
+
+\hypertarget{algorithm-review}{%
+  \subsection{Algorithm Review}\label{algorithm-review}}
+
+We begin with a concise review of decision trees to fix notation; Chapters 9.2 and 10.9 of \cite{hastieElementsStatisticalLearning2009} elaborate on the notions mentioned here.
+
+\begin{definition}[Decision Tree]\label{def:decision-tree}
+Let $\mathcal{P}_\Lambda (\mathbb{R}^m)$ denote the space of partitions of the feature space $\mathbb{R}^m$ into rectangular regions, $(R_\lambda)_{\lambda \leq \Lambda}$, obtained via recursive binary splitting by hyperplanes perpendicular to coordinate axes. $\Lambda$ is the \emph{leaf node count} and we may refer to $\lambda$ as the \emph{leaf index}. Define the \emph{space of binary decision tree parameters over $\mathbb{R}^m$} by
+
+\begin{equation}
+  %\widehat{\{0, 1\}}^{\mathcal{P}(\mathbb{R}^m)} 
+  \mathcal{B} (\mathbb{R}^m):= \bigcup_{\Lambda \in \mathbb{N}} \left\{ (R_\lambda, \beta_\lambda) \, | \, (R_\lambda) \in \mathcal{P}_\Lambda (\mathbb{R}^m) , (\beta_\lambda) \in \{0, 1\}^\Lambda \right\}.
+\end{equation}
+
+Hence a \emph{tree parameter} $\Theta \in \mathcal{B} (\mathbb{R}^m)$ is a partition $(R_\lambda) \in \mathcal{P}_\Lambda (\mathbb{R}^m)$ for some $\Lambda \in \mathbb{N}$ with a (boolean) class value $\beta_\lambda$ associated to each $R_\lambda$. %Given a tree parameter $\Theta$, the associated 
+A \emph{decision tree} on $\mathbb{R}^m$ is formally
+
+\begin{equation}\label{eq:decision-tree}
+\begin{gathered}
+%  \mathsf{T} : \mathsf{M}_{n \times m} (\mathbb{R}) \times  \mathcal{B} (\mathbb{R}^m)  \rightarrow \{0, 1\}^n  \\
+  \mathsf{T} (\cdot\, ; \Theta): \mathsf{M}_{n \times m} (\mathbb{R}) \rightarrow \{0, 1\}^n  \\
+  \mathsf{T} (x; \Theta) := \sum_\lambda \beta_\lambda \mathbf{1}_{R_\lambda} (x) 
+\end{gathered}  
+\end{equation}
+for $x \in \mathbb{R}^m$ and $\mathbf{1}_R$ the indicator function on $R \subset \mathbb{R}^m$.
+\end{definition}
+
+
+
+Implementations of decision trees and random forests employ many hyperparameters to control the tree topology. For example, the \href{https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier}{\texttt{sklearn.tree.DecisionTreeClassifier}} and \href{https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html\#sklearn.ensemble.RandomForestClassifier}{\texttt{sklearn.ensemble.RandomForestClassifier}} APIs expose
+\begin{itemize}
+\item the numbers of variables to consider during splits ($n_\mathtt{max\_features}$),
+\item minimum samples in leaf nodes ($n_\mathtt{min\_samples\_leaf}$),
+\item maximum tree depth ($n_\mathtt{max\_depth}$ ), etc. 
+\end{itemize}
+Collect the hyperparameters into a vector,
+\begin{equation}
+\mathbf{n} = (n_\mathtt{max\_features}, n_\mathtt{min\_samples\_leaf}, n_\mathtt{max\_depth}, \ldots).
+\end{equation}
+The space, $\mathbf{H}$, of all such $\mathbf{n}$ parametrize a family of probability distributions, 
+$\mathcal{T} (\mathbf{n})$, on $\mathcal{B} (\mathbb{R}^m)$, from which we sample tree parameters.
+
+
+
+Given hyperparameters $\mathbf{n} \in \mathbf{H}$, to \emph{grow a decision tree classifier, $\hat{\mathsf{T}}_\mathbf{n} (x ; \Theta)$,
+ on a training set $X_\text{train} \times y_\text{train}$} 
+is to find tree parameters $\hat{\Theta}$
+via empirical risk minimization
+\begin{equation}
+\hat{\Theta} = \argmin_\Theta \sum_{\lambda \leq \Lambda} \sum_{x^\gamma \in R_\lambda} L(y^\gamma, \beta_\lambda)
+\end{equation}
+where $L$ is a loss function (e.g.~ordinary least squares) whose precise definition depends on the implementation. In addition, computing $(R_\lambda)$ is combinatorially difficult so we must settle for $\tilde{\Theta}$, an approximation of the estimate. Practically, this means a procedure which recursively repeats the steps
+\begin{enumerate}
+\item Select $n_\mathtt{max\_features}$ features at random from the $m$ features.
+\item Use an information criterion such as Gini impurity to determine the best variable and split point among the $n_\mathtt{max\_features}$ features.
+\item Split the node into two daughter nodes.
+\end{enumerate}
+until the components of $\mathbf{n}$ determine the procedure stops. \href{https://scikit-learn.org/stable/modules/tree.html#mathematical-formulation}{Section 1.10.7.1 of the scikit-learn documentation} has more precise implementation details.
+
+Bootstrap aggregation, or bagging, is essentially an averaging technique
+which is useful for high-variance, low-bias estimators, such as decision
+trees. Random forests are a modification of bagging trees which builds
+de-correlated trees by selecting a random subset of input variables from
+which to form decision nodes -- that is, allowing $n_\mathtt{max\_features}$
+to take values less than $m$.
+
+Following the first definition of \cite{breimanRandomForests2001} and
+the exposition of Chapter 15 of
+\cite{hastieElementsStatisticalLearning2009}, we can give a high-level
+overview of the random forest classifier algorithm as follows:
+
+\begin{definition}[Random Forest]\label{def:RFC}
+
+
+Given a number of decision trees, $B$, and hyperparameters $\mathbf{n} \in \mathbf{H}$, draw bootstrap samples $(\mathbf{Z}^*_b)_{b \leq B}$ from $X_\text{train} \times y_\text{train}\) of size $n_\text{train}$ and grow decision tree classifiers $\left(\hat{\mathsf{T}}_\mathbf{n} (x ; \Theta_b) \right)_B$ on $(\mathbf{Z}^*_b)_B$.
+
+      The resulting \emph{random forest
+      classifier} is the predictor
+       \begin{equation}\label{eq:RFC}
+    \begin{gathered}
+            \operatorname{\widehat{\mathsf{RFC}}}_\mathbf{n} : \mathsf{M}_{n \times m} (\mathbb{R})  \rightarrow \{0, 1\}^n  \\
+          \operatorname{\widehat{\mathsf{RFC}}}_\mathbf{n} (x) := \operatorname{majority-vote} \left\{\left(\hat{\mathsf{T}}_\mathbf{n} \left(x; \Theta_b\right)\right)_{B}\right\}.
+       \end{gathered}  
+       \end{equation}
+\end{definition}        
+        
+
+%_________________________________
+%      \item
+%            Generate a random vector \(\Theta_b\), independent of
+%            \(\{\Theta_1, \ldots, \Theta_{b-1}\}\), but with the same
+%            distribution,
+%            \(t(n_\mathtt{min\_samples\_leaf}, n_\mathtt{max\_depth}, n_\mathtt{max\_features}, \ldots)\),
+%            which characterizes the decision tree in terms of various properties
+%            like the minimum number of samples required to be a leaf node, the
+%            maximum depth of the tree, and the size of the random subset of
+%            input variables from which to form decision nodes. While we will not
+%            formally describe \(\Theta_b\) or name all these properties, they
+%            are parameters which the
+%            \href{https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html\#sklearn.ensemble.RandomForestClassifier}{\texttt{RandomForestClassifier}}
+%            interface exposes under the names \texttt{min\_samples\_leaf},
+%            \texttt{max\_depth}, and \texttt{max\_features}, respectively.
+%      \item
+%            Grow a decision tree classifier over \(\mathbf{Z}_b^*\) according to
+%            \(\Theta_b\). The tree will grow until the parameters of
+%            \(\Theta_b\) determine the tree can no longer grow, for example
+%            because, say, the minimum samples required to be a leaf have been
+%            achieved throughout, or, if the parameters of \(\Theta_b\) allow for
+%            it, the decision tree could in principle grow until every leaf
+%            contains only a single sample.
+%    \end{enumerate}
+%                To make a prediction at a point \(x \ (\in X_\text{test})\), let
+%        \(\hat{\mathsf{T}} (x; \Theta_b)\) be the class prediction of the
+%        \(b^\text{th}\) decision tree.        
+%_________________________________ 
+
+%        where, as described above, \(\{\Theta_b\}\) are i.i.d.
+%        random vectors.
+
+
+In fact,
+\href{https://scikit-learn.org/stable/modules/ensemble.html\#random-forests}{the
+  implementation details of \texttt{RandomForestClassifier}} differ from
+the above in that scikit-learn averages probabilistic predictions
+instead of using \(\operatorname{majority-vote}\); therefore
+\(\hat{\mathsf{T}} \), \(\operatorname{\widehat{\mathsf{RFC}}}\), and \(\operatorname{\widehat{\mathsf{OOB}}}\)
+defined in section \ref{out-of-bag-samples} below, are probability predictions
+rather than class predictions.
+In other words, the ranges of the maps \eqref{eq:decision-tree}, \eqref{eq:RFC}, and \eqref{eq:OOB}
+are ordered $n$-tuples of intervals $[0,1]$ instead of ordered $n$-tuples of boolean values $\{0,1\}$:
+\begin{equation}\label{eq:tree-ranges}
+\hat{\mathsf{T}},\, \operatorname{\widehat{\mathsf{RFC}}},\, \operatorname{\widehat{\mathsf{OOB}}} :
+\mathsf{M}_{n \times m} (\mathbb{R})  \rightarrow [0, 1]^n
+\end{equation}
+We discuss various schemes for mapping $[0,1]^n \rightarrow \{0,1\}^n$ in Section \ref{top-n-variants}.
+In the
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html\#sklearn.ensemble.RandomForestClassifier}{\texttt{sklearn.ensemble.RandomForestClassifier}}
+API, $B$ is called \texttt{n\_estimators}.
+
+%_________________________________________________________________________________    
+
+
+\hypertarget{out-of-bag-samples}{%
+  \subsection{Out of Bag Samples}\label{out-of-bag-samples}}
+
+Random forests have a convenient property which we exploited in
+hyperparameter tuning. In Definition \ref{def:RFC}, the
+bootstrap samples are chosen so that \href{https://en.wikipedia.org/wiki/
+Bootstrap_aggregating#Description_of_the_technique}
+{approximately 1/3 of instances are left out}. Therefore, for any 
+\(\gamma \in \Gamma_\text{train}\), the observation
+\((x^\gamma, y^\gamma) \in X_\text{train} \times y_\text{train}\) is
+left out of approximately 1/3 of \(\left(\mathbf{Z}^*_b\right)\).
+
+\begin{definition}\label{def:OOB}
+  Given a random forest classifier $\operatorname{\widehat{\mathsf{RFC}}}_\mathbf{n}$,
+  let
+  \begin{equation}
+    B(\gamma) = \left\{ b \in \{1, \ldots , B \} \, | \, (x^\gamma, y^\gamma) \not \in \mathbf{Z}^*_b \right\}
+  \end{equation}
+  be the set of indices in $B$ for which observation $\gamma$ is \emph{not} in the bootstrap sample $\mathbf{Z}^*_b$.
+
+  For any $\gamma \in \Gamma_\text{train} $, the \emph{out-of-bag (OOB) classifier induced by $\operatorname{\widehat{\mathsf{RFC}}}_\mathbf{n}$} is
+  \begin{equation}\label{eq:OOB}
+      \begin{gathered}
+            \operatorname{\widehat{\mathsf{OOB}}}_\mathbf{n} : \mathsf{M}_{n \times m} (\mathbb{R})  \rightarrow \{0, 1\}^n  \\
+    \operatorname{\widehat{\mathsf{OOB}}}_\mathbf{n} (x^\gamma) := \operatorname{majority-vote} \left\{\left(\hat{\mathsf{T}}_\mathbf{n} \left(x^\gamma; \Theta_b\right)\right)_{b \in B(\gamma)}\right\}
+           \end{gathered}  
+  \end{equation}
+  that is, the prediction of the random forest constructed by averaging only those trees corresponding to $\mathbf{Z}^*_b$ in which $(x^\gamma, y^\gamma)$ does \emph{not} appear. The out-of-bag (OOB) error is the error of $\operatorname{\mathsf{OOB}}_\mathbf{n}$ on $X_\text{test} \times y_\text{test} $.
+
+\end{definition}
+
+The motivation for using OOB estimates instead of \(N\)-fold
+cross-validation is two-fold. First, this simplifies the phases of the
+overall project. Second, \(N\)-fold cross-validation with
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html}{\texttt{sklearn.model\_selection.GridSearchCV}}
+requires scikit-learn to split and copy the dataset \(N\) times, which,
+in addition to parallelization, causes a memory spike that the 16GB
+Kaggle Kernel cannot handle, even using \(N=3\), for a feature set of
+reasonable size.
+
+
+OOB error estimates are described in Chapter 15.3.1 of
+\cite{hastieElementsStatisticalLearning2009}, which mentions that OOB
+errors are nearly identical to those obtained by \(N\)-fold
+cross-validation. As well, section 3.1 of
+\cite{breimanRandomForests2001} explains that, unlike in
+cross-validation, out-of-bag estimates are unbiased estimators once
+\(n_\text{estimators}\) is large enough that the test error converges.
+Otherwise, OOB \emph{over}estimates error. This does not directly speak
+to how the difference between OOB error and test error varies with
+different choices of $\mathbf{n}$,
+which is a key question for understanding the results of hyperparameter
+tuning, especially in the low \(B\) \((\approx 40)\)
+domain. These errors are empirically close for the purposes of this
+project, so overall the OOB approach seems justified, though perhaps we
+should not trust fine differences in scores over different
+hyperparameters too much.
+
+
+As before,
+\href{https://scikit-learn.org/stable/modules/ensemble.html\#random-forests}{the
+  implementation details of \texttt{RandomForestClassifier}} conveniently
+differ from the above in that \(\hat{\mathsf{T}} (x; \Theta_b)\) is a probability
+prediction rather than a class prediction (and scikit-learn averages
+probabilistic predictions instead of using
+\(\operatorname{majority-vote}\)). Given the approximation between OOB
+estimates and test error, this feature allows us to use OOB estimates
+for rank metrics in addition to threshold metrics, as described in the
+next section.
+
+
+
+
+\href{https://datascience.stackexchange.com/a/30408}{A Stack Overflow
+  post} was insightful in devising the strategy to calculate OOB estimates
+using different metrics mentioned in Table \ref{tbl:metrics}. To use OOB estimates with the \texttt{sklearn}
+interface, we construct the hyperparameter search somewhat manually with
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.ParameterGrid.html}{\texttt{sklearn.model\_selection.ParameterGrid}},
+as shown in Listing \ref{lst:parametergrid}
+which essentially creates a Python iterator from a dictionary of
+parameters, \texttt{param\_grid}. Once we have trained a random forest
+classifier on a combination of parameters in \texttt{param\_grid}, we
+expose the probabilistic OOB estimates with the
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html\#sklearn.ensemble.RandomForestClassifier}{\texttt{RandomForestClassifier}}
+attribute \texttt{oob\_decision\_function\_}. Then we can score all OOB
+estimates using the metrics described in Table \ref{tbl:metrics}.
+
+
+
+
+
+
+%_________________________________________________________________________________    
+
+
+\hypertarget{metrics}{%
+  \subsection{Metrics}\label{metrics}}
+Sections \ref{instacart-random-forest-parametergrid-search} and \ref{instacart-top-n-random-forest-model} contain the code described in this section.
+
+
+\begin{table}[h]
+\begin{longtable}[]{@{}lll@{}}
+  \toprule
+  name & function & threshold\tabularnewline
+  \midrule
+  \endhead
+  \href{https://scikit-learn.org/stable/modules/model_evaluation.html\#receiver-operating-characteristic-roc}{AUC-ROC}
+  &
+  \href{https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html\#sklearn.metrics.roc_auc_score}{\texttt{sklearn.metrics.roc\_auc\_score}}
+  & False\tabularnewline
+  \href{https://scikit-learn.org/stable/modules/model_evaluation.html\#precision-recall-f-measure-metrics}{AUC-PR}
+  &
+  \href{https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html\#sklearn.metrics.average_precision_score}{\texttt{sklearn.metrics.average\_precision\_score}}
+  & False\tabularnewline
+  \href{https://scikit-learn.org/stable/modules/model_evaluation.html\#log-loss}{Log
+    Loss} &
+  \href{https://scikit-learn.org/stable/modules/generated/sklearn.metrics.log_loss.html\#sklearn.metrics.log_loss}{\texttt{sklearn.metrics.log\_loss}}
+  & False\tabularnewline
+  \href{https://scikit-learn.org/stable/modules/model_evaluation.html\#precision-recall-and-f-measures}{Precision}
+  &
+  \href{https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html\#sklearn.metrics.precision_score}{\texttt{sklearn.metrics.precision\_score}}
+  & True\tabularnewline
+  \href{https://scikit-learn.org/stable/modules/model_evaluation.html\#precision-recall-and-f-measures}{Recall}
+  &
+  \href{https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html\#sklearn.metrics.recall_score}{\texttt{sklearn.metrics.recall\_score}}
+  & True\tabularnewline
+  \href{https://scikit-learn.org/stable/modules/model_evaluation.html\#precision-recall-and-f-measures}{F1
+    Score} &
+  \href{https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html\#sklearn.metrics.f1_score}{\texttt{sklearn.metrics.f1\_score}}
+  & True\tabularnewline
+  \href{https://scikit-learn.org/stable/modules/model_evaluation.html\#balanced-accuracy-score}{Balanced
+    Accuracy} &
+  \href{https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html\#sklearn.metrics.balanced_accuracy_score}{\texttt{sklearn.metrics.balanced\_accuracy\_score}}
+  & True\tabularnewline
+  \href{https://imbalanced-learn.org/en/stable/metrics.html\#imbalanced-metrics}{Geometric
+    Mean} &
+  \href{https://imbalanced-learn.org/en/stable/generated/imblearn.metrics.geometric_mean_score.html}{\texttt{imblearn.metrics.geometric\_mean\_score}}
+  & True\tabularnewline
+  \href{https://scikit-learn.org/stable/modules/model_evaluation.html\#cohen-s-kappa}{Cohen's
+    Kappa} &
+  \href{https://scikit-learn.org/stable/modules/generated/sklearn.metrics.cohen_kappa_score.html\#sklearn.metrics.cohen_kappa_score}{\texttt{sklearn.metrics.cohen\_kappa\_score}}
+  & True\tabularnewline
+  \bottomrule
+\end{longtable}
+\caption{List of metrics}
+\label{tbl:metrics}
+\end{table}
+
+Not all of these metrics are necessarily relevant. In particular, Log
+Loss and Cohen's Kappa are included 1) out of curiosity and 2) because
+seven is prime; we should not pay much attention to these metrics except
+as an exploration into the behavior of the metrics themselves.
+
+By threshold metrics, we mean those which score class values,
+e.g.~precision, recall, and geometric mean (g-mean), while by rank
+metrics (threshold == False), we mean those which score probability
+orderings, e.g.~AUC-ROC and AUC-PR.
+
+One issue to be aware of when considering metrics is that the ratio
+between negative and positive classes is
+\begin{equation}\label{eq:skew}
+  \text{skew} = \frac{\text{Negative Classes}}{\text{Positive Classes}} \approx 10.
+\end{equation} Perhaps this is not exactly an imbalance, but certain
+metrics are more robust to skew than others. 
+
+%This is the reason for considering metrics
+
+The discussion of \cite{jeniFacingImbalancedData2013} offers guidance on metric behavior
+with respect to skew and classifier performance.
+The simulations shown
+in Figure 1 of \cite{jeniFacingImbalancedData2013} suggest that, as far
+as rank metrics, it could make sense to favor AUC-PR to AUC-ROC. Given
+the skew and the high misclassification rate in this problem relative to
+those the authors considered, perhaps AUC-PR scores have a greater
+spread than AUC-ROC scores with respect to misclassification rate.
+
+To compute threshold metrics, we choose the probability threshold which
+predicts a skew for \(\hat{y}\) of 10. Threshold metrics are not
+relevant in judging hyperparameters, though it could be informative to
+view them.
+The Kaggle competition uses F1 Score, which is the harmonic mean of precision and recall.
+Balanced accuracy is the arithmetic mean of these while g-mean is the geometric mean of 
+sensitivity and specificity.
+
+We use the same set of metrics to score the tuned classifier on
+\(y_\text{test}\). Note that scores for the model describe test error
+which is not exactly comparable to the OOB error we compute in
+hyperparameter tuning.
+
+
+%_________________________________________________________________________________    
+
+
+
+
+\hypertarget{hyperparameter-tuning}{%
+  \subsection{Hyperparameter Tuning}\label{hyperparameter-tuning}}
+Section \ref{instacart-random-forest-parametergrid-search} references the code described in this section.
+
+
+The hyperparameters we modify from the default values of 
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html\#sklearn.ensemble.RandomForestClassifier}{\texttt{RandomForestClassifier}}
+are various pairs of the following:
+\begin{itemize}
+\item $\mathtt{max\_features} \in \{5, \ldots, 9\}$
+
+Within the above range, there was little variation in scores.
+
+\item $\mathtt{max\_depth} \in \{4, \ldots, 64\}$
+
+This parameter actually seemed generally harmful to performance when varied (from \texttt{None}).
+
+\item $\mathtt{criterion} \in \{\mathtt{gini}, \mathtt{entropy}\}$
+
+The default is \texttt{gini}. Splitting criterions made no observable difference in model performance. Explanations as to why are contained in Figure 9.3 of \cite{hastieElementsStatisticalLearning2009} as well as the following StackOverflow posts:
+	\begin{itemize}
+	\item \href{https://stackoverflow.com/a/1859910}{What is ``entropy and information gain''?}
+	\item \href{https://datascience.stackexchange.com/a/10273|}{When should I use Gini Impurity as opposed to Information Gain?}
+	\end{itemize}
+
+
+\item $\mathtt{min\_samples\_leaf} \in \{4, \ldots, 48\}$
+
+``The minimum number of samples required to be at a leaf node.''
+
+This is one of the two values adjusted from the defaults to train the model.
+
+\item $\mathtt{min\_impurity\_decrease} \in [10^{-8}, 10^{-5}]$
+
+``A node will be split if this split induces a decrease of the impurity greater than or equal to this value.''
+
+This is the other value adjusted from the defaults to train the model.
+In the context of decision trees, \cite{hastieElementsStatisticalLearning2009} mentions that modifying this hyperparameter
+(from \texttt{None}) is near-sighted, since there there may be higher information gain splits to be found beyond this threshold.
+Nonetheless, tuning this hyperparameter was more effective than the above and it 
+has the benefit of making tree size easier to control than any of the previous hyperparameters, which is
+helpful to control resource usage. We have not attempted to vary
+\texttt{max\_leaf\_nodes}, which could achieve these goals more effectively.
+\end{itemize}
+
+\begin{listing}[t]
+\caption{The parameter grid responsible for the plot of optimal scores in 
+Figure~\ref{fig:best-scores}.
+}
+\label{lst:param-grid}
+    \begin{Verbatim}[commandchars=\\\{\}]
+        \PY{n}{param1} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}impurity\PYZus{}decrease}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{param2} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}samples\PYZus{}leaf}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+            \PY{n}{param1}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{geomspace}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}8}\PY{p}{,} \PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+            \PY{n}{param2}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{around}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{geomspace}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{48}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+\end{listing}
+
+
+\begin{listing}[b]
+\caption{Hyperparameter search loop; \ $\mathtt{decisions == y\_predict\_proba}$ }
+\label{lst:parametergrid}
+    \begin{Verbatim}[commandchars=\\\{\}]
+	 \PY{n}{rfc} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{35}\PY{p}{,}
+				      \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}
+				      \PY{n}{oob\PYZus{}score}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+    
+         \PY{n}{decisions} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{params} \PY{o+ow}{in} \PY{n}{ParameterGrid}\PY{p}{(}\PY{n}{param\PYZus{}grid}\PY{p}{)}\PY{p}{:}
+             \PY{n}{rfc}\PY{o}{.}\PY{n}{set\PYZus{}params}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n}{params}\PY{p}{)}
+             \PY{n}{rfc}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{n}{decisions}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rfc}\PY{o}{.}\PY{n}{oob\PYZus{}decision\PYZus{}function\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+\end{listing}
+
+
+
+\begin{figure}[p]
+\centering
+\adjustimage{max size={\linewidth}{\paperheight}}{../instacart-random-forest-parametergrid-search/output_31_0.png}
+%\captionsetup{singlelinecheck=off}
+\caption[\texttt{ParameterGrid} search in optimal neighborhood]{A \texttt{ParameterGrid} search as in Listing \ref{lst:parametergrid} in the neighborhood of the optimal scores defined by Listing~{\ref{lst:param-grid}} scored using the metrics of Table \ref{tbl:metrics}.
+%:
+%\begin{itemize}[nosep]
+%\item $\mathtt{min\_samples\_leaf} \in \{12, 24, 48\}$
+%\item $\mathtt{min\_impurity\_decrease} \in \{10^{-8}, 10^{-7.5}, 10^{-7}, 10^{-6.5}, 10^{-6}\}$
+%\end{itemize}
+}
+\label{fig:best-scores}
+\end{figure}
+
+
+
+In the notation of Definition \ref{def:RFC} %with a decoration added for the hyperparameter $\mathbf{n}$,
+we may consider a collection of random forest classifiers 
+\begin{equation}
+\left\{ \operatorname{\widehat{\mathsf{RFC}}}_\mathbf{n} (x) \right\}_{\mathbf{n} \in \mathbf{G}}
+\end{equation}
+where $\mathbf{G} \subset \mathbf{H}$ is a \emph{parameter grid} instantiated by, say, the \texttt{param\_grid} of Listing \ref{lst:param-grid}.
+Then Figure \ref{fig:best-scores} displays the OOB scores of the $\operatorname{\widehat{\mathsf{OOB}}}_\mathbf{n}$ classifier
+associated to $\operatorname{\widehat{\mathsf{RFC}}}_\mathbf{n}$
+\begin{equation}\label{eq:RFCn}
+\hat{y}^{\star} = \operatorname{\widehat{\mathsf{OOB}}}_\mathbf{n} (x) \text{ for all } \mathbf{n} \in \mathbf{G}.
+\end{equation}
+As mentioned in Section \ref{algorithm-review}, 
+\href{https://scikit-learn.org/stable/modules/ensemble.html\#random-forests}{the
+implementation details of \texttt{RandomForestClassifier}}
+mean that $\hat{y}^\star$ is a probabilistic prediction rather than a boolean value; we develop variants to convert $\hat{y}^\star \mapsto \hat{y}$ in section \ref{top-n-variants}.
+
+
+
+
+
+
+
+
+Fortunately, the optimal scores across metrics seem near enough, at least at this scale. 
+The AUC-PR $\argmax$ occurs at a value $\mathbf{n_0}$ of
+\begin{itemize}
+\item $\mathtt{min\_impurity\_decrease = 10^{-6.5}}$,
+\item $\mathtt{min\_samples\_leaf = 24}$
+\end{itemize}
+to the resolution displayed in Figure \ref{fig:best-scores}. 
+Note that lower scores are better for Log Loss.
+
+Those trees grown with the default values for 
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html\#sklearn.ensemble.RandomForestClassifier}{\texttt{RandomForestClassifier}}
+are ``fully-grown'' trees, in that those values for $\mathbf{n}$ do little or nothing to `interfere' with the tree topology,
+aside from $\texttt{max\_features = \textquotesingle{}sqrt\textquotesingle{}}$, 
+which is the default value for classification suggested by the creators.
+Such fully-grown trees have $\Lambda \approx 10^{6}$ on $X_\text{train} \times y_\text{train}$, whereas in the neighborhood defined by Listing \ref{lst:param-grid},
+$\Lambda \approx 10^{4.5} \text{---} 10^{5}$.
+
+
+The search performed in Figure \ref{fig:best-scores} used $B = \mathtt{n\_estimators} = \mathtt{35}$ trees, which is admittedly few, though samples roughly every observation in \texttt{\textquotesingle{}train\textquotesingle{}}. We used this value for \texttt{n\_estimators} to obtain a runtime less than the six hours provided by Kaggle Kernels. A search on a smaller parameter grid with roughly double the $\mathtt{n\_estimators}$ indicates a bit of empirical stability in optimal hyperparameters as we increase the number of trees.
+
+
+
+
+
+%_________________________________________________________________________________    
+
+\hypertarget{rank-scores}{%
+  \subsection{Rank Scores}\label{rank-scores}}
+
+Section \ref{instacart-top-n-random-forest-model} references the code described in this section.
+
+\begin{listing}
+\caption{Call and fit \texttt{RandomForestClassifier}}
+\label{lst:rfc}
+    \begin{Verbatim}[commandchars=\\\{\}]
+        \PY{n}{rfc} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{,}
+                                     \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqrt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{min\PYZus{}impurity\PYZus{}decrease}\PY{o}{=}\PY{l+m+mf}{3e\PYZhy{}7}\PY{p}{,}
+                                     \PY{n}{min\PYZus{}samples\PYZus{}leaf}\PY{o}{=}\PY{l+m+mi}{24}\PY{p}{,}
+                                     \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{n}{rfc}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{y\PYZus{}predict\PYZus{}proba} \PY{o}{=} \PY{n+nb}{dict}\PY{o}{.}\PY{n}{fromkeys}\PY{p}{(}\PY{n}{dsets}\PY{p}{)}
+         
+        \PY{k}{for} \PY{n}{ds} \PY{o+ow}{in} \PY{n}{dsets}\PY{p}{:}
+            \PY{n}{y\PYZus{}predict\PYZus{}proba}\PY{p}{[}\PY{n}{ds}\PY{p}{]} \PY{o}{=} \PY{n}{rfc}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{ds}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}        
+\end{Verbatim}
+\end{listing}
+
+
+Now that we have decided on hyperparameters, we fit the classifier as in Listing \ref{lst:rfc}. The decision to increase \texttt{n\_estimators} to \texttt{600} decreases error at the cost of compute time. More trees decreases variance without increasing bias; the only reason we do not use more trees in Listing \ref{lst:parametergrid} is the six hour compute time limit of Kaggle Kernels. Listing \ref{lst:rfc} has a runtime of approximately four hours.
+
+\hypertarget{roc-curve}{%
+  \subsubsection{ROC Curve}\label{roc-curve}}
+
+\begin{figure}[p]
+\centering
+    \adjustimage{max size={0.7\linewidth}{0.7\paperheight}}{../instacart-top-n-random-forest-model/output_17_0.png}
+\caption[ROC Curve]{Receiver Operating Characteristic (ROC) curve; AUC-ROC = 0.83.}
+\label{fig:roc}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+    \adjustimage{max size={0.7\linewidth}{0.7\paperheight}}{../instacart-top-n-random-forest-model/output_19_0.png}
+\caption[Precision-Recall Curve]{Precision-Recall Curve; AUC-PR = 0.41.}
+\label{fig:precision-recall}
+\end{figure}
+
+
+An issue with changing \texttt{n\_estimators} to a different value after hyperparameter tuning 
+is that there is not necessarily reason to think that the optimal hyperparameters for 
+$\mathtt{n\_estimators = 35}$ are the same as the optimal hyperparameters for 
+$\mathtt{n\_estimators = 600}$. On the other hand, changing the value of 
+\texttt{n\_estimators} does not alter $\mathcal{T} (\mathbf{n})$, the decision tree distribution.
+ Also, there is a small amount of empirical evidence that the optimal 
+ hyperparameters are relatively stable in the range 
+ $\mathtt{n\_estimators} \approx 25 \text{---} 75$. 
+ Finally, given that notebooks of both Sections 
+ \ref{instacart-random-forest-parametergrid-search} and 
+ \ref{instacart-top-n-random-forest-model} must run in six hours, 
+ this seems like the best strategy since the hyperparameters found in 
+ Section \ref{hyperparameter-tuning} are the best we are able to compute.
+
+\begin{figure}[]
+\centering
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{../instacart-top-n-random-forest-model/output_11_0.png}
+\caption[\texttt{RandomForestClassifier} Variable Importance]{The \texttt{RandomForestClassifier} uses an information criterion to determine variable importances.}
+\label{fig:variable-importances}
+\end{figure}
+
+
+\hypertarget{precision-recall-curve}{%
+  \subsubsection{Precision-Recall Curve}\label{precision-recall-curve}}
+
+Now we can examine the probabilistic predictions from the \texttt{RandomForestClassifier} of Listing \ref{lst:rfc}. The ROC Curve shown in Figure \ref{fig:roc} displays decent classifier performance. On the other hand, a skew of 10 means that it is a bit `easier' to find negatives and `suppress' the false positive rate. The performance displayed in Figure \ref{fig:roc} seems overly optimistic when compared to the Precision-Recall Curve of Figure \ref{fig:precision-recall}. \cite{brownleeHowWhenUse2018} contains an informative review and argument for using AUC-PR rather than AUC-ROC given an imbalance.
+
+
+
+\hypertarget{variable-importances}{%
+  \subsubsection{Variable Importances}\label{variable-importances}}
+  
+Figure \ref{fig:variable-importances} describes the importances of the features listed in Table \ref{tbl:features}.
+Variable importance is another nice feature of random forest classifiers.  The importances are computed via the information criterion; the idea is described in 15.3.2 of \cite{hastieElementsStatisticalLearning2009}.
+One of the most
+fruitful avenues to pursue to improve classifier performance is to focus
+on manually creating additional user-product features which capture more
+complex user-product interactions.
+
+
+
+
+%_________________________________________________________________________________    
+
+
+\hypertarget{top-n-variants}{%
+  \section{\texorpdfstring{\(\mathsf{TopN}\)
+      Variants}{Top-N Variants}}\label{top-n-variants}}
+
+\begin{figure}[t]
+\begin{center}
+   \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{../instacart-top-n-random-forest-model/output_38_0.png}
+\caption{Scores for \(\mathsf{TopN_\textsf{threshold}}\) variants.}
+\label{fig:n-threshold-scores}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[h]
+\begin{center}
+   \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{../instacart-top-n-random-forest-model/output_47_0.png}
+\caption{Normalized confusion matrices for \(\mathsf{TopN_\textsf{threshold}}\) variants.}
+\label{fig:n-threshold-confusion}
+\end{center}
+\end{figure}
+
+
+Section \ref{instacart-top-n-random-forest-model} references the code described in this section.
+
+Finally, we define various maps
+\begin{equation}\label{eq:TopN}
+\begin{aligned}
+\operatorname{\mathsf{TopN}} : {[0, 1]}^{n} &\rightarrow \{0, 1\}^n \\ 
+\hat{y}^\star  &\mapsto \hat{y}
+\end{aligned}
+\end{equation}
+to make binary predictions. The structure of the definitions is to define a
+subset of user-product pairs $N_\text{variant} \subset \Gamma$ and throughout let
+\begin{equation}
+\operatorname{\mathsf{TopN}}_\text{variant} ((\hat{y}^\star)^\gamma) = 
+\begin{cases}
+1 & \text{ if } \gamma \in N_\text{variant}, \\
+0 & \text{ if } \gamma \not \in N_\text{variant}.
+\end{cases}
+\end{equation}
+
+    \hypertarget{topn_textthreshold-variants}{%
+\subsection{\texorpdfstring{\(\mathsf{TopN_\textsf{threshold}}\)
+Variants}{TopN\_\textbackslash{}text\{threshold\} Variants}}\label{topn_textthreshold-variants}}
+
+
+If we choose the \({N_\text{threshold}}\) user-product pairs \((u,p) \in \Gamma\)
+with the greatest \((\hat{y}^\star)^{(u,p)}\), then this top-\(N\) variant is a
+reparamaterization of the classification threshold, \(p_0\), via
+\[N_\text{threshold} =  \left\{ (u,p) \ | \ (\hat{y}^\star)^{(u,p)} > p_0 \right\}.\]
+
+
+
+
+An advantage of this variant is that it recommends the items users are,
+in aggregate, most likely to purchase. Therefore, we can, overall, make
+the `best' recommendations. A disadvantage is that there is a lot
+variation in the number of recommended products. 
+Some proposals for principled choices of \(N_\text{threshold}\) follow.
+
+    \hypertarget{n_0.5}{%
+\subsubsection*{\texorpdfstring{\(N_{0.5}\)}{N\_\{0.5\}}}\label{n_0.5}}
+
+A direct interpretation of $\hat{y}$ in terms of
+probabilities would make a threshold of \(p_0 = 0.5\) the most
+principled choice. On the other hand, choices made in the model
+definition and implementation make this interpretation dubious.
+Nonetheless, we can define
+\[N_{0.5} = \left\{ (u,p) \ | \ P((u,p)) > 0.5 \right\}\]
+to explore scores. Figures \ref{fig:n-threshold-scores} and \ref{fig:n-threshold-confusion} show scores and
+normalized confusion matrices.
+
+
+\begin{figure}[t]
+\begin{center}
+   \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{../instacart-top-n-random-forest-model/output_58_0.png}
+\caption{Scores for $\mathsf{TopN_u}$ variants.}
+\label{fig:n-u-scores}
+\end{center}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+   \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{../instacart-top-n-random-forest-model/output_61_0.png}
+\caption{Normalized confusion matrices for $\mathsf{TopN_u}$ variants.}
+\label{fig:n-u-confusion}
+\end{center}
+\end{figure}
+
+
+    \hypertarget{n_textskew}{%
+\subsubsection*{\texorpdfstring{\(N_\text{skew}\)}{N\_\textbackslash{}text\{skew\}}}\label{n_textskew}}
+
+It may instead be most principled to choose \(N\) such that the skew of
+$\hat{y}$ equals the train skew.
+%(negative classes divided by
+%positive classes). Let \(y_\oplus\) be the count of positive classes
+%(\texttt{train}) and \(y_\ominus\) be the count of negative classes
+%(\texttt{train}). We compute \texttt{skew\_train} as
+%\(\mathrm{skew} = y_\ominus / y_\oplus\). For \(s \in \mathrm{DSets}\),
+%let \(n_s = |I_s|\), the length of the multiindex of user-product pairs.
+%Define
+%\[N_{\text{skew}_s} := n_s * P(y_\oplus) = \frac{n_s}{1+\mathrm{skew}},\]
+%where \[P(y_\oplus) = \frac{y_\oplus}{y_\oplus + y_\ominus}\] is the
+%ratio of positive classes in \texttt{train} to the length of
+%\texttt{train}.
+
+
+
+\begin{figure}[t!]
+\begin{center}
+   \adjustimage{max size={\linewidth}{\paperheight}}{../instacart-top-n-random-forest-model/output_67_0.png}
+\caption{Scores for $\mathsf{TopN_N}$ variants.}
+\label{fig:top-n-scores}
+\end{center}
+\end{figure}
+
+
+
+
+
+    \hypertarget{n_textbasket}{%
+\subsubsection*{\texorpdfstring{\(N_\text{basket}\)}{N\_\textbackslash{}text\{basket\}}}\label{n_textbasket}}
+
+A couple other values we may consider to be principled are
+\[ N_\text{basket} = \sum_{u \in U} \overline{ b(u) }\]
+\[ N_\text{basket reorder} = \sum_{u \in U} \overline{ r(u) }\] where
+\(\overline{b(u)}\) is the mean basket size for user \(u\) and
+\(\overline{ r(u)}\) is the mean reordered items per basket for user
+\(u\).
+
+
+
+
+
+\begin{figure}[]
+\begin{center}
+   \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{../instacart-top-n-random-forest-model/output_70_0.png}
+\caption{Normalized confusion matrices for $\mathsf{TopN_N}$.}
+\label{fig:top-n-confusion}
+\end{center}
+\end{figure}
+
+
+
+
+
+
+    \hypertarget{topn-u-variants}{%
+\subsection{\texorpdfstring{\(\mathsf{TopN_u}\)
+Variants}{TopN_u) Variants}}\label{topn-u-variants}}
+
+
+
+If we want to avoid the high variation of basket sizes in the
+\(\mathsf{TopN_\textsf{threshold}}\) variant, we can define 
+ultimate basket sizes by user. Let 
+\[N(u) = \left\lceil \overline{b(u)} \right\rceil\]
+\[N_\text{reorder}(u) = \left\lceil \overline{r(u)} \right\rceil\] 
+for all \(u \in U\), that is, the ceiling of the mean (re)orders per basket
+for user \(u\). Using the ceiling rather than round or floor offers the
+advantage of recommending at least one item to users in a
+straight-forward way. The mean reorders per basket is biased even as a
+predictor of ultimate \emph{re}orders since user's initial orders have
+zero reorders. On the other hand, since we are predicting fewer
+positives, the precision of \(N_\text{reorder}(u)\) is better.
+
+
+
+
+
+
+
+For the curious reader, we can be formal about this by defining a maximum-$N$
+function recursively as
+\begin{equation}\label{eq:MaxN}
+M_1(A) = \{ \max (A) \}, \qquad M_{N+1} (A) = \{ \max (A \setminus M_N(A)) \} \cup M_N (A)
+\end{equation}
+where $A$ and $M_N(A)$ are ordered sets. Then 
+\begin{equation}
+N_u = \bigcup_{u \in U} M_{N(u)} (\Gamma|_u)
+\end{equation}
+defines a function
+\begin{equation}
+\mathsf{TopN_u} : [0, 1]^n \times \mathcal{D} \rightarrow \{0,1\}^n
+\end{equation}
+which depends on the raw data since $N(u)$ depends on the raw data.
+
+These kinds of variants, or those which offer control of ultimate basket
+size while offering more flexibility in that control, may be useful for
+product applications like auto-populating user carts with items we most
+expect users to reorder. For such an application we would prefer models
+with higher precision.
+Figures \ref{fig:n-u-scores} and \ref{fig:n-u-confusion} show scores and
+normalized confusion matrices.
+
+
+
+
+
+    \hypertarget{topn-n-variants}{%
+\subsection{\texorpdfstring{\(\mathsf{TopN_N}\) Variants}{TopN_N}}\label{topn-n-variants}}
+
+While the top-\(N_u\) model gives better predictions, a top-\(N\) model
+with a fixed \(N\) for all users may be useful, for example, in
+displaying previously purchased product recommendations on a web page of
+fixed size.
+For an application like this
+one would prefer higher recall models.
+Figures \ref{fig:top-n-scores} and \ref{fig:top-n-confusion} show scores and
+normalized confusion matrices for
+\(N \in \left\{4, 8, 12, 16, 20, 24\right\}\). Using \eqref{eq:MaxN} it is
+straight-forward to write explicit formulae for the $\mathsf{TopN}_N$ maps.
+
+
+
+
+
+
+
+\hypertarget{prediction-explorer}{%
+  \section{Prediction Explorer}\label{prediction-explorer}}
+  
+Section \ref{instacart-prediction-explorer} references the code described in this section.
+  
+For a user and a model variant, we construct a utility to visualize the model prediction, true order, and basket history,
+along with colorings for
+\begin{itemize}
+\item \(\color{lawngreen}{\text{True Positives: Ordered and Predicted}}\) 
+\item \(\color{gold}{\text{False Positives: Predicted but not Ordered}}\)
+\item \(\color{deepskyblue}{\text{False Negatives: Ordered but not Predicted}}\)
+\item \(\color{lightgrey}{\text{True Negatives: neither Ordered nor Predicted}}\)
+\end{itemize}
+
+A model with greater \textbf{precision} has fewer
+\(\color{gold}{\text{False Positives}}\) while a model with greater
+\textbf{recall} has fewer
+\(\color{deepskyblue}{\text{False Negatives}}\).
+Note: \texttt{\textquotesingle{}add\_to\_cart\_order\textquotesingle{}}
+is not meaningful for the top rows of predictions and true orders.
+
+
+
+\begin{figure}[]
+\begin{center}
+   \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{../instacart-prediction-explorer/styled_df.png}
+\caption[Styled DataFrame of Predictions, Ultimate Orders, and Basket History]{A portion of a styled DataFrame of Predictions, Ultimate Orders, and Basket History for
+%\texttt{
+%user\_id == \PY{n}{users}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{18}\PY{p}{]}
+%};
+\texttt{user\_id == 125};
+\texttt{
+model ==   \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}threshold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}basket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}
+}
+.}
+\label{fig:styled-df}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[]
+\caption[Style of Predictions, Ultimate Orders, and Basket History]{``Zoom out'' on Figure \ref{fig:styled-df} by ignoring product names.}
+\label{fig:style}
+\begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{../instacart-prediction-explorer/output_36_0.png}
+\end{center}
+\end{figure}
+
+
+
+
+\begin{listing}
+\caption{Model choices for Figure \ref{fig:models-styles}}
+\label{lst:models}
+    \begin{Verbatim}[commandchars=\\\{\}]
+         \PY{n}{models\PYZus{}list} \PY{o}{=} \PY{p}{[}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}threshold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}basket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}u}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N\PYZus{}u}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{top\PYZus{}N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{top\PYZus{}N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{p}{]}
+\end{Verbatim}
+
+\end{listing}
+
+
+
+
+\begin{figure}[]
+\begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{../instacart-prediction-explorer/output_38_0.png}
+\caption[Model Variant Prediction Exploration for a Fixed User]{``Zoom out'' further by displaying predictions for \texttt{user\_id == 125} using the model choices of Listing \ref{lst:models}. By fixing a user, we can inspect the behavior of different models.}
+\label{fig:models-styles}
+\end{center}
+\end{figure}
+
+
+
+
+\begin{figure}[]
+\begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.8\paperheight}}{../instacart-prediction-explorer/output_39_0.png}
+\caption[Prediction Exploration for Varying User and Model]{Zoom out on Figure \ref{fig:models-styles} to include more users.}
+\label{fig:users-models-styles}
+\end{center}
+\end{figure}
+
+
+  
+  \newpage
+  
+\hypertarget{prospects}{%
+  \section{Prospects}\label{prospects}}  
+
+There are a number of avenues to pursue in future versions of this project:
+
+\begin{description}
+\item[Feature Design:] The first suggestions listed may be the most urgent to improve performance.
+\begin{itemize}
+\item Design more User-Product features as a first step. Figure \ref{fig:variable-importances}
+demonstrates how much more effective these features are than those which come from Profiles 
+with lower information content.
+%
+\item User-Aisle and User-Department Profiles could be the next reasonable Profiles to build
+if the User-Product profile is exhausted though such features would be correlated 
+with analogous User-Product features.
+%
+\item As well, there are additional sorts of complex features which require a
+modest increase in memory. For example,
+\href{https://en.wikipedia.org/wiki/Non-negative_matrix_factorization}{non-negative
+  matrix factorization (NMF)} techniques have traditionally been used in
+recommendation systems. Such techniques may be appropriate for the
+user-user matrix of, say, counts of common product purchases. One
+application of NMF to this matrix is dimensionality reduction -- to
+create a relatively small number of user ``topics'' based on the common
+purchase count matrix. Experimentation along the lines of Listing \ref{lst:nmf}
+on subsets of the overall dataset
+suggest the matrix is tractable at a size of perhaps roughly 10GB for
+\(s=\text{train}\). The value of \texttt{n\_components} requires a search
+(scored by \texttt{factor.reconstruction\_err\_}). 
+%
+\begin{listing}
+\caption{NMF Mock-up}
+\label{lst:nmf}
+    \begin{Verbatim}[commandchars=\\\{\}]
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{NMF}
+        \PY{k+kn}{from} \PY{n+nn}{itertools} \PY{k}{import} \PY{n}{combinations}
+        
+        \PY{k}{def} \PY{n+nf}{col\PYZus{}comb}\PY{p}{(}\PY{n}{gp}\PY{p}{,} \PY{n}{r}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{combinations}\PY{p}{(}\PY{n}{gp}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{r}\PY{p}{)}\PY{p}{)}\PY{p}{,} 
+                                \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{col}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{product\PYZus{}user} \PY{o}{=} \PY{n+nb}{dict}\PY{o}{.}\PY{n}{fromkeys}\PY{p}{(}\PY{n}{dsets}\PY{p}{)}
+        \PY{n}{product\PYZus{}similarity} \PY{o}{=} \PY{n+nb}{dict}\PY{o}{.}\PY{n}{fromkeys}\PY{p}{(}\PY{n}{dsets}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{ds} \PY{o+ow}{in} \PY{n}{dsets}\PY{p}{:}
+            \PY{n}{product\PYZus{}user}\PY{p}{[}\PY{n}{ds}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{prior}\PY{p}{[}\PY{n}{ds}\PY{p}{]}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+                                \PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{p}{)}
+                                \PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{product\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{product\PYZus{}similarity} \PY{o}{=} \PY{p}{(}\PY{n}{product\PYZus{}user}\PY{p}{[}\PY{n}{ds}\PY{p}{]}
+                              \PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{product\PYZus{}id}
+                              \PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{col\PYZus{}comb}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+                              \PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{level}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+                              \PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{col}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{)}         
+                            
+        \PY{n}{factor} \PY{o}{=} \PY{n}{NMF}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{W} \PY{o}{=} \PY{n}{factor}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{product\PYZus{}similarity}\PY{p}{)}
+        \PY{n}{H} \PY{o}{=} \PY{n}{factor}\PY{o}{.}\PY{n}{components\PYZus{}}                                                                
+        \end{Verbatim}
+\end{listing}
+%
+\item There are many approaches to incorporate interactions between baskets. The factorizing personalized Markov chains model in \cite{rendleFactorizingPersonalizedMarkov2010} is a tensor factorization approach which improves on matrix factorization alone by introducing a ``personalized Markov chain'' product-product transition matrix for each user. 
+These papers are mentioned in \cite{quadranaSequenceAwareRecommenderSystems2018}, which provides an excellent overview of these more complex techniques.
+\end{itemize}
+
+
+\item[Random Forest Classifier:] Alterations related to the classifier itself may improve performance somewhat.
+\begin{itemize}
+\item Adjust train/test split ratio to 70\%/30\%; check if this lowers the difference between train and test AUC-ROC.
+\item Experiment with the \texttt{max\_leaf\_nodes} hyperparameter.
+\item Instead of random forests, experiment with gradient boosting or XGBoost.
+\item A couple variants of random forests were introduced in \cite{chenUsingRandomForest2004} to better handle imbalanced data.
+These may offer marginal improvements.
+\begin{itemize}
+\item Balanced Random Forests are an under/over-sampling technique to either 
+oversample the minority class or undersample the majority class; 
+the imbalanced-learn package has an implementation 
+\href{https://imbalanced-learn.org/en/stable/generated/imblearn.ensemble.BalancedRandomForestClassifier.html#imblearn.ensemble.BalancedRandomForestClassifier}{imblearn.ensemble.BalancedRandomForestClassifier}
+though the results of early experiments have been difficult to interpret.
+\item Weighted Random Forests penalize the majority class more or the minority class less;
+despite the name, they appear to be implemented in scikit-learn as 
+\texttt{class\_weight=\textquotesingle{}{balanced}\textquotesingle{}}. Early experimentation suggests
+there may be marginal improvements we can gain with this.
+\end{itemize}
+\end{itemize}
+
+\item[Prediction Explorer:] Some ideas to improve the Prediction Explorer utility are
+\begin{itemize}
+\item a product information highlight display on mouse hover (using Bokeh),
+\item an API allowing for interactivity in user choice, model variant, etc., and
+\item a simple web app front-end.
+\end{itemize}
+\end{description}
+
+
+\newpage
+
+\hypertarget{appendices}{%
+  \section{Appendices}\label{appendices}}
+
+\hypertarget{appendix-i-features-list}{%
+  \subsection{Appendix I: Features List}\label{appendix-i-features-list}}
+
+\begin{longtable}[]{@{}ll@{}}
+\caption[]{Profiles}\label{tbl:profiles} \\
+  \toprule
+  prefix       & name\tabularnewline
+  \midrule
+  \endhead
+  \texttt{U}   & User Profile\tabularnewline
+  \texttt{P}   & Product Profile\tabularnewline
+  \texttt{UP}  & User-Product Profile\tabularnewline
+  \texttt{AD}  & Aisle and Department Profiles (ignored)\tabularnewline
+  \texttt{LDA} & Latent Dirichlet Allocation User Features\tabularnewline
+  \bottomrule
+\end{longtable}
+
+\tabulinesep=2pt
+\begin{longtabu} to\linewidth{@{}|>{\ttfamily}X[-1]|>{\ttfamily}X[-1c]|X|@{}}
+  \caption[]{List of features}\label{tbl:features} \\
+  \hline
+  \textrm{feature}                                  & \textrm{dtype}                                     & description  \\
+  \toprule \hline
+  U\_ultimate\_order\_dow                &                 float16                 & dow of user's ultimate order                                                                                                                                                                                                                      \\ \hline
+  U\_ultimate\_order\_hour\_of\_day      &         float16                         & hour of user's ultimate order                                                                                                                                                                                                                     \\ \hline
+  U\_ultimate\_days\_since\_prior\_order &    float16                              & days since user's previous order (from ultimate)                                                                                                                                                                                                  \\ \hline
+  U\_orders\_num                         &                         uint8           & number of orders a given user has placed                                                                                                                                                                                                          \\ \hline
+  U\_items\_total                        &                        uint16           & number of total items a given user has purchased                                                                                                                                                                                                  \\ \hline
+  U\_order\_size\_mean                   &                    float16              & mean basket size for a given user                                                                                                                                                                                                                 \\ \hline
+  U\_order\_size\_std                    &                     float16             & std basket size for a given user                                                                                                                                                                                                                  \\ \hline
+  U\_unique\_products                    &                    uint16               & number of unique products a given user has purchased                                                                                                                                                                                              \\ \hline
+  U\_reordered\_num                      &                      uint16             & number of total items a given user has purchased which are reorders                                                                                                                                                                               \\ \hline
+  U\_reorder\_size\_mean                 &                  float16                & mean reorders per basket                                                                                                                                                                                                                          \\ \hline
+  U\_reorder\_size\_std                  &                   float16               & std reorders per basket                                                                                                                                                                                                                           \\ \hline
+  U\_reordered\_ratio                    &                    float16              & proportion of items a given user has purchased which are reorders                                                                                                                                                                                 \\ \hline
+  U\_order\_dow\_mean                    &                     float16             & mean order\_dow                                                                                                                                                                                                                                   \\ \hline
+  U\_order\_dow\_var                     &                      float16            & var order\_dow                                                                                                                                                                                                                                    \\ \hline
+  U\_order\_dow\_score                   &                    float16              & ultimate score for order\_dow using circstd = sqrt(-2ln(circvar))                                                                                                                                                                                 \\ \hline
+  U\_order\_hour\_of\_day\_mean          &             float16                     & mean order\_hour\_of\_day                                                                                                                                                                                                                         \\ \hline
+  U\_order\_hour\_of\_day\_var           &              float16                    & var order\_hour\_of\_day                                                                                                                                                                                                                          \\ \hline
+  U\_order\_hour\_of\_day\_score         &            float16                      & ultimate score for order\_hour\_of\_day using circstd = sqrt(-2ln(circvar))                                                                                                                                                                       \\ \hline
+  U\_days\_since\_prior\_order\_mean     &        float16                          & mean days since prior order (mean user order time interval)                                                                                                                                                                                       \\ \hline
+  U\_days\_since\_prior\_order\_std      &         float16                         & std days since prior order (std user order time interval)                                                                                                                                                                                         \\ \hline
+  P\_orders\_num                         &                         uint32          & number of total purchases                                                                                                                                                                                                                         \\ \hline
+  P\_unique\_users                       &                       uint16            & number of purchasers                                                                                                                                                                                                                              \\ \hline
+  P\_reorder\_ratio                      &                      float16            & reorder ratio                                                                                                                                                                                                                                     \\ \hline
+  P\_order\_hour\_of\_day\_mean          &             float16                     & mean order\_hour\_of\_day                                                                                                                                                                                                                         \\ \hline
+  P\_order\_hour\_of\_day\_var           &              float16                    & var order\_hour\_of\_day                                                                                                                                                                                                                          \\ \hline
+  P\_order\_dow\_mean                    &                     float16             & mean order\_dow                                                                                                                                                                                                                                   \\ \hline
+  P\_order\_dow\_var                     &                      float16            & var order\_dow                                                                                                                                                                                                                                    \\ \hline
+  UP\_orders\_num                        &                        uint8            & number of times particular user has ordered particular product                                                                                                                                                                                    \\ \hline
+  UP\_orders\_since\_previous            &             uint8                       & number of orders since previous purchase of product by user                                                                                                                                                                                       \\ \hline
+  UP\_days\_since\_prior\_order          &            uint16                       & days since user last ordered product                                                                                                                                                                                                              \\ \hline
+  UP\_days\_since\_prior\_order\_score   &      float16                            & normalize above by user's days\_since\_prior\_order                                                                                                                                                                                               \\ \hline
+  UP\_reordered                          &                         bool            & boolean indicating whether the product was ever reordered by user                                                                                                                                                                                 \\ \hline
+  UP\_order\_ratio                       &                       float16           & fraction of baskets in which a given product appears for a given user (count of orders in which product appears divided by total orders)                                                                                                          \\ \hline
+  UP\_penultimate                        &                       bool              & products in user's penultimate (previous) order as bool (train and test sets contain ultimate order)                                                                                                                                        \\ \hline
+  UP\_antepenultimate                    &                   bool                  & products in user's antepenultimate order as bool                                                                                                                                                                                                \\ \hline
+  UP\_order\_dow\_score                  &                   float16               & ultimate score for order\_dow using (U\_ultimate - P\_order\_dow\_mean) / P\_order\_dow\_std (intuitively, how 'far' is a user's ultimate order dow from the mean dow product is ordered)                                                   \\ \hline
+  UP\_order\_hour\_of\_day\_score        &           float16                       & ultimate score for order\_hour\_of\_day using (U\_ultimate - P\_order\_hour\_of\_day\_mean) / P\_order\_hour\_of\_day\_std (intuitively, how 'far' is a user's ultimate order hour\_of\_day from the mean hour\_of\_day product is ordered) \\ \hline
+  LDA\_1                                 &                                float16  & Latent Dirichlet Allocation Feature 1                                                                                                                                                                                                             \\ \hline
+  LDA\_2                                 &                                float16  & Latent Dirichlet Allocation Feature 2                                                                                                                                                                                                             \\ \hline
+  LDA\_3                                 &                                float16  & Latent Dirichlet Allocation Feature 3                                                                                                                                                                                                             \\ \hline
+  LDA\_4                                 &                                float16  & Latent Dirichlet Allocation Feature 4                                                                                                                                                                                                             \\ \hline
+  LDA\_5                                 &                                float16  & Latent Dirichlet Allocation Feature 5                                                                                                                                                                                                             \\ \hline
+  LDA\_6                                 &                                float16  & Latent Dirichlet Allocation Feature 6                                                                                                                                                                                                             \\ \hline
+  LDA\_7                                 &                                float16  & Latent Dirichlet Allocation Feature 7                                                                                                                                                                                                             \\ \hline
+  LDA\_8                                 &                                float16  & Latent Dirichlet Allocation Feature 8                                                                                                                                                                                                             \\ \hline
+  LDA\_9                                 &                                float16  & Latent Dirichlet Allocation Feature 9                                                                                                                                                                                                             \\ \hline
+  LDA\_10                                &                               float16   & Latent Dirichlet Allocation Feature 10                                                                                                                                                                                                            \\ \hline
+  %\bottomrule
+\end{longtabu}
+
+
+\hypertarget{appendix-ii-notebooks}{%
+  \subsection{Appendix II: Notebooks}\label{appendix-ii-notebooks}}
+
+The following notebooks contain the code for this project as well as
+additional discussion particular to the code itself. Some of the linked
+notebooks repeat parts of the above discussion in order to be more
+readable as independent documents.
+
+\hypertarget{instacart-exploratory-data-analysis}{%
+  \subsubsection{\texorpdfstring{\href{./instacart-exploratory-data-analysis.ipynb}{Instacart:
+        Exploratory Data
+        Analysis}}{Instacart: Exploratory Data Analysis}}\label{instacart-exploratory-data-analysis}}
+
+Examines the
+\href{https://www.kaggle.com/c/instacart-market-basket-analysis/data}{raw
+  data} prior to making any predictions.
+
+\hypertarget{instacart-feature-engineering}{%
+  \subsubsection{\texorpdfstring{\href{./instacart-feature-engineering.ipynb}{Instacart:
+        Feature
+        Engineering}}{Instacart: Feature Engineering}}\label{instacart-feature-engineering}}
+
+Designs nearly 50 features from the raw data. These features are columns
+of \(X\).
+
+\begin{itemize}
+  \tightlist
+  \item
+        \href{./instacart-lda-gridsearchcv-course}{Instacart: LDA GridSearchCV
+          (Course)} is a coarse parameter search for Latent Dirichlet Allocation
+        parameters.
+  \item
+        \href{./instacart-lda-gridsearchcv-fine}{Instacart: LDA GridSearchCV
+          (Fine)} is a fine parameter search for Latent Dirichlet Allocation
+        parameters.
+  \item
+        \href{./instacart-non-negative-matrix-factorization}{Instacart:
+          Non-negative Matrix Factorization} is a work in progress aimed at
+        constructing features derived from matrix factorization of user-user
+        product counts and variants.
+\end{itemize}
+
+\hypertarget{instacart-random-forest-parametergrid-search}{%
+  \subsubsection{\texorpdfstring{\href{./instacart-random-forest-parametergrid-search.ipynb}{Instacart:
+        Random Forest ParameterGrid
+        Search}}{Instacart: Random Forest ParameterGrid Search}}\label{instacart-random-forest-parametergrid-search}}
+
+Conducts a hyperparameter search using
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.ParameterGrid.html}{\texttt{sklearn.model\_selection.ParameterGrid}},
+which permits sufficient flexibility for out-of-bag (OOB) samples to be
+used in cross-validation. A history of previous searches is available at
+\href{https://www.kaggle.com/eangel/instacart-random-forest-parametergrid-search}{Kaggle}.
+
+\hypertarget{instacart-top-n-random-forest-model}{%
+  \subsubsection{\texorpdfstring{\href{./instacart-top-n-random-forest-model.ipynb}{Instacart:
+        Top-N Random Forest
+        Model}}{Instacart: Top-N Random Forest Model}}\label{instacart-top-n-random-forest-model}}
+
+Trains a random forest classifier using the best parameters found in
+Section \ref{instacart-random-forest-parametergrid-search}. In fact,
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html}{sklearn.ensemble.RandomForestClassifier}
+provides
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html\#sklearn.ensemble.RandomForestClassifier.predict_proba}{an
+  array of probabilities}. From the ranking determined by this array,
+\href{./instacart-top-n-random-forest-model.ipynb}{Instacart: Top-N Random
+  Forest Model} picks the top-\(N\) user-product pairs, for various
+meanings of \(N\).
+
+\hypertarget{instacart-prediction-explorer}{%
+  \subsubsection{\texorpdfstring{\href{./instacart-inspect-predictions.ipynb}{Instacart:
+        Prediction
+        Explorer}}{Instacart: Prediction Explorer}}\label{instacart-prediction-explorer}}
+
+Constructs a visualization utility to inspect model performance for a
+given model and user.
+
+% Add a bibliography block to the postdoc
+
+\bibliographystyle{alphaurl}
+\bibliography{instacart-report}{}
+
+
+
+\end{document}
