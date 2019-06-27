@@ -3,16 +3,16 @@
 * Data: The Instacart Online Grocery Shopping Dataset
 
 # Files
-* [Report](./instacart-report.pdf) <--- Start here! This is a detailed description of the project.
+* [instacart-report.pdf](./instacart-report.pdf): Report <--- Start here! This is a detailed description of the project.
 
-* [Presentation](./instacart-presentation.pdf) <--- Slides provide an overview.
+* [instacart-presentation.pdf](./instacart-presentation.pdf): Slides <--- Slides provide a partial overview.
 
 ## Notebooks
 Execute in the order listed to respect the data flow.
-1. [Instacart: Exploratory Data Analysis](./instacart-exploratory-data-analysis.ipynb)
-2. [Instacart: Feature Engineering](./instacart-feature-engineering.ipynb)
-    * [Latent Dirichlet Allocation GridSearchCV Part 1: Coarse Search](./instacart-lda-gridsearchcv-course.ipynb)
-    * [Latent Dirichlet Allocation GridSearchCV Part 2: Fine Search](./instacart-lda-gridsearchcv-fine.ipynb)
-3. [Instacart: Random Forest ParameterGrid Search](./instacart-random-forest-parametergrid-search.ipynb)
-4. [Top-$N$ Random Forest Model](./instacart-top-n-random-forest-model.ipynb)
-5. [Instacart: Prediction Explorer](/instacart-prediction-explorer.ipynb)
+1. [instacart-exploratory-data-analysis.ipynb](./instacart-exploratory-data-analysis.ipynb): Exploratory Data Analysis
+2. [instacart-feature-engineering.ipynb](./instacart-feature-engineering.ipynb): Instacart: Feature Engineering
+    * [instacart-lda-gridsearchcv-course.ipynb](./instacart-lda-gridsearchcv-course.ipynb): Latent Dirichlet Allocation GridSearchCV Part 1: Coarse Search
+    * [instacart-lda-gridsearchcv-fine.ipynb](./instacart-lda-gridsearchcv-fine.ipynb): Latent Dirichlet Allocation GridSearchCV Part 2: Fine Search
+3. [instacart-random-forest-parametergrid-search.ipynb](./instacart-random-forest-parametergrid-search.ipynb): Instacart: Random Forest ParameterGrid Search
+4. [instacart-top-n-random-forest-model.ipynb](./instacart-top-n-random-forest-model.ipynb): Top-$N$ Random Forest Model
+5. [instacart-prediction-explorer.ipynb](./instacart-prediction-explorer.ipynb): Instacart: Prediction Explorer
