@@ -10,9 +10,9 @@
 ## Notebooks
 Execute in the order listed to respect the data flow.
 1. [instacart-exploratory-data-analysis.ipynb](./instacart-exploratory-data-analysis.ipynb): Exploratory Data Analysis
-2. [instacart-feature-engineering.ipynb](./instacart-feature-engineering.ipynb): Instacart: Feature Engineering
+2. [instacart-feature-engineering.ipynb](./instacart-feature-engineering.ipynb): Feature Engineering
     * [instacart-lda-gridsearchcv-course.ipynb](./instacart-lda-gridsearchcv-course.ipynb): Latent Dirichlet Allocation GridSearchCV Part 1: Coarse Search
     * [instacart-lda-gridsearchcv-fine.ipynb](./instacart-lda-gridsearchcv-fine.ipynb): Latent Dirichlet Allocation GridSearchCV Part 2: Fine Search
-3. [instacart-random-forest-parametergrid-search.ipynb](./instacart-random-forest-parametergrid-search.ipynb): Instacart: Random Forest ParameterGrid Search
+3. [instacart-random-forest-parametergrid-search.ipynb](./instacart-random-forest-parametergrid-search.ipynb): Random Forest ParameterGrid Search
 4. [instacart-top-n-random-forest-model.ipynb](./instacart-top-n-random-forest-model.ipynb): Top-$N$ Random Forest Model
-5. [instacart-prediction-explorer.ipynb](./instacart-prediction-explorer.ipynb): Instacart: Prediction Explorer
+5. [instacart-prediction-explorer.ipynb](./instacart-prediction-explorer.ipynb): Prediction Explorer
