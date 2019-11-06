@@ -1,6 +1,6 @@
 # Instacart Basket Prediction
 * Problem: Predict the Items Instacart Costumers Purchase
-* Data: The Instacart Online Grocery Shopping Dataset
+* Data: [The Instacart Online Grocery Shopping Dataset](https://www.kaggle.com/c/instacart-market-basket-analysis/data)
 
 # Files
 * [instacart-report.pdf](./instacart-report.pdf): Report <--- Start here! This is a detailed description of the project.
